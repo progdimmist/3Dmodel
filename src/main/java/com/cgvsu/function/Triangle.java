@@ -1,4 +1,4 @@
-package com.cgvsu.deistvia;
+package com.cgvsu.function;
 
 import com.cgvsu.model.Polygon;
 

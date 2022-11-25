@@ -1,6 +1,6 @@
 package com.cgvsu;
 
-import com.cgvsu.deistvia.Triangle;
+import com.cgvsu.function.Triangle;
 import com.cgvsu.model.Polygon;
 import com.cgvsu.objwriter.ObjWriter;
 import com.cgvsu.render_engine.RenderEngine;
@@ -16,9 +16,6 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.IOException;
