@@ -1,5 +1,7 @@
 package com.cgvsu;
 
+import com.cgvsu.deistvia.Triangle;
+import com.cgvsu.model.Polygon;
 import com.cgvsu.objwriter.ObjWriter;
 import com.cgvsu.render_engine.RenderEngine;
 import javafx.fxml.FXML;
@@ -119,7 +121,11 @@ public class GuiController {
 
     }
 
-
+    @FXML
+    private void onTriangle() {
+        ArrayList<Polygon> triangles = Triangle.triangulatePolygon(mesh.polygons);
+        mesh.setPolygons(triangles);
+    }
 
     @FXML
     public void handleCameraForward(ActionEvent actionEvent) {

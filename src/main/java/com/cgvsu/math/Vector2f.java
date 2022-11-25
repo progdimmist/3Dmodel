@@ -17,4 +17,8 @@ public class Vector2f {
     public float getY(){
         return y;
     }
+
+    public double vectorMultiplication(Vector2f v) {
+        return x * v.y - y * v.x;
+    }
 }

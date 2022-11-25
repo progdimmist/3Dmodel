@@ -53,4 +53,6 @@ public class Polygon {
     public int getSizePolygonsNormalIndices(){
         return normalIndices.size();
     }
+
+
 }
