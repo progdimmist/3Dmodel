@@ -1,6 +1,9 @@
 package com.cgvsu;
 
-import com.cgvsu.function.Triangle;
+
+import com.cgvsu.rasterization.DrawUtilsJavaFX;
+import com.cgvsu.rasterization.GraphicsUtils;
+import com.cgvsu.triangle.Triangle;
 import com.cgvsu.model.Polygon;
 import com.cgvsu.objwriter.ObjWriter;
 import com.cgvsu.render_engine.RenderEngine;
@@ -9,6 +12,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -51,6 +55,7 @@ public class GuiController {
     private void initialize() {
         anchorPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> canvas.setWidth(newValue.doubleValue()));
         anchorPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> canvas.setHeight(newValue.doubleValue()));
+        GraphicsUtils<Canvas> graphicsUtils = new DrawUtilsJavaFX(canvas);
 
         timeline = new Timeline();
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -63,7 +68,7 @@ public class GuiController {
             camera.setAspectRatio((float) (width / height));
 
             if (mesh != null) {
-                RenderEngine.render(canvas.getGraphicsContext2D(), camera, mesh, (int) width, (int) height);
+                RenderEngine.render(canvas.getGraphicsContext2D(),graphicsUtils, camera, mesh, (int) width, (int) height);
             }
         });
 
@@ -122,6 +127,11 @@ public class GuiController {
     private void onTriangle() {
         ArrayList<Polygon> triangles = Triangle.triangulatePolygon(mesh.polygons);
         mesh.setPolygons(triangles);
+    }
+
+    @FXML
+    private void rasterization() {
+
     }
 
     @FXML
