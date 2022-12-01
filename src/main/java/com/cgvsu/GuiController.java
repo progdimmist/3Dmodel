@@ -124,17 +124,6 @@ public class GuiController {
     }
 
     @FXML
-    private void onTriangle() {
-        ArrayList<Polygon> triangles = Triangle.triangulatePolygon(mesh.polygons);
-        mesh.setPolygons(triangles);
-    }
-
-    @FXML
-    private void rasterization() {
-
-    }
-
-    @FXML
     public void handleCameraForward(ActionEvent actionEvent) {
         camera.movePosition(new Vector3f(0, 0, -TRANSLATION));
     }

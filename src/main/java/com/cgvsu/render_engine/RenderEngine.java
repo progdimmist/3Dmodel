@@ -95,32 +95,11 @@ public class RenderEngine {
                 resultPoints.add(resultPoint);
             }
 
-
             Rasterization.fillTriangle(graphicsUtils,
-                    new Point2D(resultPoints.get(0).x, resultPoints.get(0).y),
-                    new Point2D(resultPoints.get(1).x, resultPoints.get(1).y),
-                    new Point2D(resultPoints.get(2).x, resultPoints.get(2).y),
-                    MyColor.RED, MyColor.BLUE, MyColor.GREEN);
-
-
-
-
-
-/*
-            if (nVerticesInPolygon > 0)
-                Rasterization.fillTriangle(graphicsUtils,
-                        new Vector3f(resultPoints.get(nVerticesInPolygon - 2).x,resultPoints.get(nVerticesInPolygon - 2).y,0),
-                        new Vector3f(resultPoints.get(nVerticesInPolygon - 1).x,resultPoints.get(nVerticesInPolygon - 1).y,0),
-                        new Vector3f(resultPoints.get(nVerticesInPolygon).x,resultPoints.get(nVerticesInPolygon).y,0),
-                        MyColor.BLUE,MyColor.RED,MyColor.GREEN);
-
-
-
-
-            Rasterization.fillTriangle(graphicsUtils, mesh.vertices.get(mesh.polygons.get(i).getVertexIndices().get(0)),
-                   mesh.vertices.get(mesh.polygons.get(i).getVertexIndices().get(1)),
-                    mesh.vertices.get(mesh.polygons.get(i).getVertexIndices().get(2)), MyColor.BLUE,MyColor.RED,MyColor.GREEN);
-        */
+                    resultPoints.get(0).x, resultPoints.get(0).y,
+                    resultPoints.get(1).x, resultPoints.get(1).y,
+                    resultPoints.get(2).x, resultPoints.get(2).y,
+                    MyColor.RED, MyColor.RED, MyColor.RED);
         }
 
 

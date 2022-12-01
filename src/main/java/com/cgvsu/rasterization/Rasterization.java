@@ -12,16 +12,15 @@ import java.util.List;
 
 public class Rasterization {
 
-    //todo: сделать @param Point2D общим
     public static void fillTriangle(
             final GraphicsUtils gr,
-            Point2D p1, Point2D p2, Point2D p3,
+            MyPoint2D p1, MyPoint2D p2, MyPoint2D p3,
             MyColor myColor1, MyColor myColor2, MyColor myColor3) {
 
 
-        List<Point2D> points = new ArrayList<>(Arrays.asList(p1, p2, p3));
+        List<MyPoint2D> points = new ArrayList<>(Arrays.asList(p1, p2, p3));
 
-        points.sort(Comparator.comparingDouble(Point2D::getY));
+        points.sort(Comparator.comparingDouble(MyPoint2D::getY));
 
         final double x1 = points.get(0).getX();
         double x2 = points.get(1).getX();
@@ -42,20 +41,19 @@ public class Rasterization {
             double endX = getX(y, x2, x3, y2, y3);
             fillLine(gr, y, startX, endX, myColor1, myColor2, myColor3, x1, x2, x3, y1, y2, y3);
         }
-
     }
 
-    static void fillTriangle(
+    public static void fillTriangle(
             GraphicsUtils gr,
             double x1, double y1,
             double x2, double y2,
             double x3, double y3,
             MyColor myColor1, MyColor myColor2, MyColor myColor3) {
-        fillTriangle(gr, new Point2D(Math.round(x1), Math.round(y1)), new Point2D(Math.round(x2), Math.round(y2)), new Point2D(Math.round(x3), Math.round(y3)), myColor1, myColor2, myColor3);
+        fillTriangle(gr, new MyPoint2D(x1,y1), new MyPoint2D(x2, y2), new MyPoint2D(x3, y3), myColor1, myColor2, myColor3);
     }
 
     private static double getX(double y, double x1, double x2, double y1, double y2) {
-        return Math.round((x2 - x1) * (y - y1) / (y2 - y1)) + x1;
+        return (x2 - x1) * (y - y1) / (y2 - y1) + x1;
     }
 
     private static void fillLine(
