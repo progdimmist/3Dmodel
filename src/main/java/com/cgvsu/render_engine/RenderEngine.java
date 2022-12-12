@@ -2,6 +2,8 @@ package com.cgvsu.render_engine;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.cgvsu.math.Vector3f;
 import com.cgvsu.model.Polygon;
@@ -50,13 +52,13 @@ public class RenderEngine {
         for (int polygonInd = 0; polygonInd < nPolygons; ++polygonInd) {
             final int nVerticesInPolygon = mesh.polygons.get(polygonInd).getVertexIndices().size();
 
-            ArrayList<Point2f> resultPoints = new ArrayList<>();
+            ArrayList<Point3f> resultPoints = new ArrayList<>();
             for (int vertexInPolygonInd = 0; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
                 Vector3f vertex = mesh.vertices.get(mesh.polygons.get(polygonInd).getVertexIndices().get(vertexInPolygonInd));
 
                 javax.vecmath.Vector3f vertexVecmath = new javax.vecmath.Vector3f(vertex.x, vertex.y, vertex.z);
 
-                Point2f resultPoint = vertexToPoint(multiplyMatrix4ByVector3(modelViewProjectionMatrix, vertexVecmath), width, height);
+                Point3f resultPoint = vertexToPoint3f(multiplyMatrix4ByVector3(modelViewProjectionMatrix, vertexVecmath), width, height);
                 resultPoints.add(resultPoint);
             }
 
@@ -82,25 +84,31 @@ public class RenderEngine {
         ArrayList<Polygon> triangles = Triangle.triangulatePolygon(mesh.polygons);
         mesh.setPolygons(triangles);
 
+        Double[][] zBuffer=new Double[width][height];
+
         for (int i = 0; i < nPolygons; i++) {
             final int nVerticesInPolygon = mesh.polygons.get(i).getVertexIndices().size();
 
             ArrayList<Point2f> resultPoints = new ArrayList<>();
+            List<Double> pointsZ = new ArrayList<>();
             for (int vertexInPolygonInd = 0; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
                 Vector3f vertex = mesh.vertices.get(mesh.polygons.get(i).getVertexIndices().get(vertexInPolygonInd));
 
                 javax.vecmath.Vector3f vertexVecmath = new javax.vecmath.Vector3f(vertex.x, vertex.y, vertex.z);
+                pointsZ.add((double) vertex.z);
 
                 Point2f resultPoint = vertexToPoint(multiplyMatrix4ByVector3(modelViewProjectionMatrix, vertexVecmath), width, height);
                 resultPoints.add(resultPoint);
             }
 
             Rasterization.fillTriangle(graphicsUtils,
-                    resultPoints.get(0).x, resultPoints.get(0).y,
-                    resultPoints.get(1).x, resultPoints.get(1).y,
-                    resultPoints.get(2).x, resultPoints.get(2).y,
-                    MyColor.RED, MyColor.RED, MyColor.RED);
+                    resultPoints.get(0).x, resultPoints.get(0).y, pointsZ.get(0),
+                    resultPoints.get(1).x, resultPoints.get(1).y,pointsZ.get(1),
+                    resultPoints.get(2).x, resultPoints.get(2).y,pointsZ.get(2),
+                    MyColor.RED, MyColor.GREEN, MyColor.BLUE, zBuffer);
         }
+
+
 
 
     }

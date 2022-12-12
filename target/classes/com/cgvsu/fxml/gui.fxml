@@ -55,18 +55,7 @@
                 </accelerator>
             </MenuItem>
         </Menu>
-        <Menu mnemonicParsing="false" text="Functions">
-            <MenuItem mnemonicParsing="false" onAction="#onTriangle" text="Triangle">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="F"/>
-                </accelerator>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#rasterization" text="Rasterization">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="S"/>
-                </accelerator>
-            </MenuItem>
-        </Menu>
+
 
     </MenuBar>
 
