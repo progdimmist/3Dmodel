@@ -3,6 +3,7 @@ package com.cgvsu;
 
 import com.cgvsu.rasterization.DrawUtilsJavaFX;
 import com.cgvsu.rasterization.GraphicsUtils;
+import com.cgvsu.render_engine.RenderRasterization;
 import com.cgvsu.triangle.Triangle;
 import com.cgvsu.model.Polygon;
 import com.cgvsu.objwriter.ObjWriter;
@@ -35,6 +36,7 @@ import com.cgvsu.render_engine.Camera;
 public class GuiController {
 
     final private float TRANSLATION = 0.5F;
+    public static boolean isRasterization=false;
 
     @FXML
     AnchorPane anchorPane;
@@ -68,7 +70,10 @@ public class GuiController {
             camera.setAspectRatio((float) (width / height));
 
             if (mesh != null) {
-                RenderEngine.render(canvas.getGraphicsContext2D(),graphicsUtils, camera, mesh, (int) width, (int) height);
+                if (isRasterization)
+                    RenderRasterization.render(canvas.getGraphicsContext2D(), graphicsUtils, camera, mesh, (int) width, (int) height);
+                else
+                    RenderEngine.render(canvas.getGraphicsContext2D(), graphicsUtils, camera, mesh, (int) width, (int) height);
             }
         });
 
@@ -97,6 +102,7 @@ public class GuiController {
 
         }
     }
+
     @FXML
     private void saveModelMenuItemClick() {
         FileChooser fileChooser = new FileChooser();
@@ -109,10 +115,10 @@ public class GuiController {
         Path fileName = Path.of(file.getAbsolutePath());
 
         try {
-            ArrayList<String> fileContent= ObjWriter.write(mesh);
+            ArrayList<String> fileContent = ObjWriter.write(mesh);
             FileWriter writer = new FileWriter(fileName.toFile());
             for (String s : fileContent) {
-                writer.write(s+"\n");
+                writer.write(s + "\n");
 
             }
             writer.flush();
@@ -121,6 +127,15 @@ public class GuiController {
             // Handle exception
         }
 
+    }
+
+    @FXML
+    private void loadRasterization() {
+        isRasterization=true;
+    }
+    @FXML
+    private void loadStructure() {
+        isRasterization=false;
     }
 
     @FXML

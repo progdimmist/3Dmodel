@@ -81,35 +81,6 @@ public class RenderEngine {
 
         }
 
-        ArrayList<Polygon> triangles = Triangle.triangulatePolygon(mesh.polygons);
-        mesh.setPolygons(triangles);
-
-        Double[][] zBuffer=new Double[width][height];
-
-        for (int i = 0; i < nPolygons; i++) {
-            final int nVerticesInPolygon = mesh.polygons.get(i).getVertexIndices().size();
-
-            ArrayList<Point2f> resultPoints = new ArrayList<>();
-            List<Double> pointsZ = new ArrayList<>();
-            for (int vertexInPolygonInd = 0; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
-                Vector3f vertex = mesh.vertices.get(mesh.polygons.get(i).getVertexIndices().get(vertexInPolygonInd));
-
-                javax.vecmath.Vector3f vertexVecmath = new javax.vecmath.Vector3f(vertex.x, vertex.y, vertex.z);
-                pointsZ.add((double) vertex.z);
-
-                Point2f resultPoint = vertexToPoint(multiplyMatrix4ByVector3(modelViewProjectionMatrix, vertexVecmath), width, height);
-                resultPoints.add(resultPoint);
-            }
-
-            Rasterization.fillTriangle(graphicsUtils,
-                    resultPoints.get(0).x, resultPoints.get(0).y, pointsZ.get(0),
-                    resultPoints.get(1).x, resultPoints.get(1).y,pointsZ.get(1),
-                    resultPoints.get(2).x, resultPoints.get(2).y,pointsZ.get(2),
-                    MyColor.RED, MyColor.GREEN, MyColor.BLUE, zBuffer);
         }
 
-
-
-
-    }
 }
