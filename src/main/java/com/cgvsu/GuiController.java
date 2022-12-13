@@ -36,8 +36,9 @@ import com.cgvsu.render_engine.Camera;
 public class GuiController {
 
     final private float TRANSLATION = 0.5F;
-    public static boolean isRasterization=false;
-
+    public static boolean isStructure = true;
+    public static boolean isLight = true;
+    public static boolean isTexture = true;
     @FXML
     AnchorPane anchorPane;
 
@@ -70,10 +71,10 @@ public class GuiController {
             camera.setAspectRatio((float) (width / height));
 
             if (mesh != null) {
-                if (isRasterization)
-                    RenderRasterization.render(canvas.getGraphicsContext2D(), graphicsUtils, camera, mesh, (int) width, (int) height);
-                else
+                RenderRasterization.render(canvas.getGraphicsContext2D(), graphicsUtils, camera, mesh, (int) width, (int) height);
+                if (isStructure) {
                     RenderEngine.render(canvas.getGraphicsContext2D(), graphicsUtils, camera, mesh, (int) width, (int) height);
+                }
             }
         });
 
@@ -101,6 +102,14 @@ public class GuiController {
         } catch (IOException exception) {
 
         }
+        for (int i = 0; i < mesh.polygons.size(); i++) {
+            mesh.trianglePolygons.add(new Polygon());
+            mesh.trianglePolygons.get(i).getVertexIndices().addAll(mesh.polygons.get(i).getVertexIndices());
+            mesh.trianglePolygons.get(i).getTextureVertexIndices().addAll(mesh.polygons.get(i).getTextureVertexIndices());
+            mesh.trianglePolygons.get(i).getNormalIndices().addAll(mesh.polygons.get(i).getNormalIndices());
+        }
+        ArrayList<Polygon> triangles = Triangle.triangulatePolygon(mesh.trianglePolygons);
+        mesh.setTrianglePolygons(triangles);
     }
 
     @FXML
@@ -130,12 +139,18 @@ public class GuiController {
     }
 
     @FXML
-    private void loadRasterization() {
-        isRasterization=true;
+    private void loadLight() {
+        isLight= !isLight;
     }
+
     @FXML
     private void loadStructure() {
-        isRasterization=false;
+        isStructure= !isStructure;
+    }
+
+    @FXML
+    private void loadTexture() {
+        isTexture= !isTexture;
     }
 
     @FXML

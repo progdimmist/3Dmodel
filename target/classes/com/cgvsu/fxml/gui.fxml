@@ -56,16 +56,21 @@
             </MenuItem>
         </Menu>
         <Menu mnemonicParsing="false" text="View">
-            <MenuItem mnemonicParsing="false" onAction="#loadStructure" text="Structure">
+            <CheckMenuItem selected="true" mnemonicParsing="false" onAction="#loadStructure" text="Рисовать сетку">
                 <accelerator>
-                    <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="F"/>
+                    <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="V"/>
                 </accelerator>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#loadRasterization" text="Rasterization">
+            </CheckMenuItem>
+            <CheckMenuItem selected="true" mnemonicParsing="false"  onAction="#loadLight" text="Использовать освещение">
                 <accelerator>
-                    <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="F"/>
+                    <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="B"/>
                 </accelerator>
-            </MenuItem>
+            </CheckMenuItem>
+            <CheckMenuItem selected="true" mnemonicParsing="false" onAction="#loadTexture" text="Использовать текстуру">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="N"/>
+                </accelerator>
+            </CheckMenuItem>
         </Menu>
     </MenuBar>
 

@@ -48,51 +48,16 @@ public class RenderRasterization {
         modelViewProjectionMatrix.mul(viewMatrix);
         modelViewProjectionMatrix.mul(projectionMatrix);
 
-        final int nPolygons = mesh.polygons.size();
-        for (int polygonInd = 0; polygonInd < nPolygons; ++polygonInd) {
-            final int nVerticesInPolygon = mesh.polygons.get(polygonInd).getVertexIndices().size();
-
-            ArrayList<Point3f> resultPoints = new ArrayList<>();
-            for (int vertexInPolygonInd = 0; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
-                Vector3f vertex = mesh.vertices.get(mesh.polygons.get(polygonInd).getVertexIndices().get(vertexInPolygonInd));
-
-                javax.vecmath.Vector3f vertexVecmath = new javax.vecmath.Vector3f(vertex.x, vertex.y, vertex.z);
-
-                Point3f resultPoint = vertexToPoint3f(multiplyMatrix4ByVector3(modelViewProjectionMatrix, vertexVecmath), width, height);
-                resultPoints.add(resultPoint);
-            }
-
-            for (int vertexInPolygonInd = 1; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
-                graphicsContext.strokeLine(
-                        resultPoints.get(vertexInPolygonInd - 1).x,
-                        resultPoints.get(vertexInPolygonInd - 1).y,
-                        resultPoints.get(vertexInPolygonInd).x,
-                        resultPoints.get(vertexInPolygonInd).y);
-
-            }
-
-            if (nVerticesInPolygon > 0)
-                graphicsContext.strokeLine(
-                        resultPoints.get(nVerticesInPolygon - 1).x,
-                        resultPoints.get(nVerticesInPolygon - 1).y,
-                        resultPoints.get(0).x,
-                        resultPoints.get(0).y);
-
-
-        }
-
-        ArrayList<Polygon> triangles = Triangle.triangulatePolygon(mesh.polygons);
-        mesh.setPolygons(triangles);
-
-        Double[][] zBuffer=new Double[width][height];
+        final int nPolygons = mesh.trianglePolygons.size();
+        Double[][] zBuffer = new Double[width][height];
 
         for (int i = 0; i < nPolygons; i++) {
-            final int nVerticesInPolygon = mesh.polygons.get(i).getVertexIndices().size();
+            final int nVerticesInPolygon = mesh.trianglePolygons.get(i).getVertexIndices().size();
 
             ArrayList<Point2f> resultPoints = new ArrayList<>();
             List<Double> pointsZ = new ArrayList<>();
             for (int vertexInPolygonInd = 0; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
-                Vector3f vertex = mesh.vertices.get(mesh.polygons.get(i).getVertexIndices().get(vertexInPolygonInd));
+                Vector3f vertex = mesh.vertices.get(mesh.trianglePolygons.get(i).getVertexIndices().get(vertexInPolygonInd));
 
                 javax.vecmath.Vector3f vertexVecmath = new javax.vecmath.Vector3f(vertex.x, vertex.y, vertex.z);
                 pointsZ.add((double) vertex.z);
@@ -103,9 +68,12 @@ public class RenderRasterization {
 
             Rasterization.fillTriangle(graphicsUtils,
                     resultPoints.get(0).x, resultPoints.get(0).y, pointsZ.get(0),
-                    resultPoints.get(1).x, resultPoints.get(1).y,pointsZ.get(1),
-                    resultPoints.get(2).x, resultPoints.get(2).y,pointsZ.get(2),
+                    resultPoints.get(1).x, resultPoints.get(1).y, pointsZ.get(1),
+                    resultPoints.get(2).x, resultPoints.get(2).y, pointsZ.get(2),
                     MyColor.RED, MyColor.GREEN, MyColor.BLUE, zBuffer);
+        }
+        for (Double[] doubles : zBuffer) {
+            Arrays.fill(doubles, null);
         }
     }
 }
