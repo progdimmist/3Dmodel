@@ -70,7 +70,7 @@ public class RenderRasterization {
                     resultPoints.get(0).x, resultPoints.get(0).y, pointsZ.get(0),
                     resultPoints.get(1).x, resultPoints.get(1).y, pointsZ.get(1),
                     resultPoints.get(2).x, resultPoints.get(2).y, pointsZ.get(2),
-                    MyColor.RED, MyColor.GREEN, MyColor.BLUE, zBuffer);
+                    MyColor.RED, MyColor.RED, MyColor.RED, zBuffer, camera);
         }
         for (Double[] doubles : zBuffer) {
             Arrays.fill(doubles, null);

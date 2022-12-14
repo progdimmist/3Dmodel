@@ -56,7 +56,7 @@
             </MenuItem>
         </Menu>
         <Menu mnemonicParsing="false" text="View">
-            <CheckMenuItem selected="true" mnemonicParsing="false" onAction="#loadStructure" text="Рисовать сетку">
+            <CheckMenuItem selected="false" mnemonicParsing="false" onAction="#loadStructure" text="Рисовать сетку">
                 <accelerator>
                     <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="V"/>
                 </accelerator>
@@ -66,7 +66,7 @@
                     <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="B"/>
                 </accelerator>
             </CheckMenuItem>
-            <CheckMenuItem selected="true" mnemonicParsing="false" onAction="#loadTexture" text="Использовать текстуру">
+            <CheckMenuItem selected="false" mnemonicParsing="false" onAction="#loadTexture" text="Использовать текстуру">
                 <accelerator>
                     <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="N"/>
                 </accelerator>

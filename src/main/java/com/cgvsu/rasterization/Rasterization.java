@@ -1,6 +1,9 @@
 package com.cgvsu.rasterization;
 
 
+import com.cgvsu.GuiController;
+import com.cgvsu.render_engine.Camera;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -12,32 +15,34 @@ public class Rasterization {
             final GraphicsUtils gr,
             MyPoint3D p1, MyPoint3D p2, MyPoint3D p3,
             MyColor myColor1, MyColor myColor2, MyColor myColor3,
-            Double[][] zBuffer) {
+            Double[][] zBuffer, Camera camera) {
 
         List<MyPoint3D> points = new ArrayList<>(Arrays.asList(p1, p2, p3));
 
         points.sort(Comparator.comparingDouble(MyPoint3D::getY));
-
+        double cosLight;
+        if (GuiController.isLight) cosLight = MathRasterization.getCosLight(camera, p1, p2, p3);
+        else cosLight = 1;
         final double x1 = points.get(0).getX();
-        double x2 = points.get(1).getX();
-        double x3 = points.get(2).getX();
-        double y1 = points.get(0).getY();
-        double y2 = points.get(1).getY();
-        double y3 = points.get(2).getY();
-        double z1 = points.get(0).getZ();
-        double z2 = points.get(1).getZ();
-        double z3 = points.get(2).getZ();
+        final double x2 = points.get(1).getX();
+        final double x3 = points.get(2).getX();
+        final double y1 = points.get(0).getY();
+        final double y2 = points.get(1).getY();
+        final double y3 = points.get(2).getY();
+        final double z1 = points.get(0).getZ();
+        final double z2 = points.get(1).getZ();
+        final double z3 = points.get(2).getZ();
 
         for (int y = (int) (y1 + 1); y <= y2; y++) {
             double startX = getX(y, x1, x2, y1, y2);
             double endX = getX(y, x1, x3, y1, y3);
-            fillLine(gr, y, startX, endX, myColor1, myColor2, myColor3, x1, x2, x3, y1, y2, y3, z1, z2, z3, zBuffer);
+            fillLine(gr, y, startX, endX, myColor1, myColor2, myColor3, x1, x2, x3, y1, y2, y3, z1, z2, z3, zBuffer, camera, cosLight);
         }
 
         for (int y = (int) (y2 + 1); y < y3; y++) {
             double startX = getX(y, x1, x3, y1, y3);
             double endX = getX(y, x2, x3, y2, y3);
-            fillLine(gr, y, startX, endX, myColor1, myColor2, myColor3, x1, x2, x3, y1, y2, y3, z1, z2, z3, zBuffer);
+            fillLine(gr, y, startX, endX, myColor1, myColor2, myColor3, x1, x2, x3, y1, y2, y3, z1, z2, z3, zBuffer, camera, cosLight);
         }
     }
 
@@ -47,9 +52,9 @@ public class Rasterization {
             double x2, double y2, double z2,
             double x3, double y3, double z3,
             MyColor myColor1, MyColor myColor2, MyColor myColor3,
-            Double[][] zBuffer) {
+            Double[][] zBuffer, Camera camera) {
         fillTriangle(gr, new MyPoint3D(x1, y1, z1), new MyPoint3D(x2, y2, z2), new MyPoint3D(x3, y3, z3),
-                myColor1, myColor2, myColor3, zBuffer);
+                myColor1, myColor2, myColor3, zBuffer, camera);
     }
 
     private static double getX(double y, double x1, double x2, double y1, double y2) {
@@ -62,7 +67,7 @@ public class Rasterization {
             double x1, double x2, double x3,
             double y1, double y2, double y3,
             double z1, double z2, double z3,
-            Double[][] zBuffer) {
+            Double[][] zBuffer, Camera camera, double cosLight) {
 
         if (Double.compare(startX, endX) > 0) {
             double temp = startX;
@@ -71,11 +76,11 @@ public class Rasterization {
         }
 
         for (int x = (int) startX + 1; x < endX; x++) {
-            double z = Normals.getZ(new MyPoint3D(x1, y1, z1), new MyPoint3D(x2, y2, z2), new MyPoint3D(x3, y3, z3), x, y);
+            double z = MathRasterization.getZ(new MyPoint3D(x1, y1, z1), new MyPoint3D(x2, y2, z2), new MyPoint3D(x3, y3, z3), x, y);
             if (x >= 0 && y >= 0) {
-                if (zBuffer[x][y] == null || zBuffer[x][y] < z) {
-                    gr.setPixel(x, y, getColor(myColor1, myColor2, myColor3, x, y, x1, x2, x3, y1, y2, y3));
-                    zBuffer[x][y] = z;
+                if (zBuffer[x][y] == null || zBuffer[x][y] > Math.abs(z - camera.getPosition().z)) {
+                    gr.setPixel(x, y, getColor(myColor1, myColor2, myColor3, x, y, x1, x2, x3, y1, y2, y3, cosLight));
+                    zBuffer[x][y] = Math.abs(z - camera.getPosition().z);
                 }
             }
         }
@@ -86,7 +91,8 @@ public class Rasterization {
             MyColor myColor1, MyColor myColor2, MyColor myColor3,
             double x, double y,
             double x1, double x2, double x3,
-            double y1, double y2, double y3) {
+            double y1, double y2, double y3,
+            double cosLight) {
 
         double detT = (y2 - y3) * (x1 - x3) + (x3 - x2) * (y1 - y3);
 
@@ -100,7 +106,12 @@ public class Rasterization {
         double g = (alpha * myColor1.getGreen() + betta * myColor2.getGreen() + gamma * myColor3.getGreen());
         double b = (alpha * myColor1.getBlue() + betta * myColor2.getBlue() + gamma * myColor3.getBlue());
 
-        return new MyColor(r, g, b);
+        //со светом
+        double rLight = r * cosLight;
+        double gLight = g * cosLight;
+        double bLight = b * cosLight;
+
+        return new MyColor(rLight, gLight, bLight);
     }
 
 }

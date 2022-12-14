@@ -36,9 +36,9 @@ import com.cgvsu.render_engine.Camera;
 public class GuiController {
 
     final private float TRANSLATION = 0.5F;
-    public static boolean isStructure = true;
+    private boolean isStructure = false;
     public static boolean isLight = true;
-    public static boolean isTexture = true;
+    private boolean isTexture = false;
     @FXML
     AnchorPane anchorPane;
 
@@ -140,17 +140,17 @@ public class GuiController {
 
     @FXML
     private void loadLight() {
-        isLight= !isLight;
+        isLight = !isLight;
     }
 
     @FXML
     private void loadStructure() {
-        isStructure= !isStructure;
+        isStructure = !isStructure;
     }
 
     @FXML
     private void loadTexture() {
-        isTexture= !isTexture;
+        isTexture = !isTexture;
     }
 
     @FXML
