@@ -39,6 +39,7 @@ public class GuiController {
     private boolean isStructure = false;
     public static boolean isLight = true;
     private boolean isTexture = false;
+    private final static boolean willItWriteInformationToConsole = true;
     @FXML
     AnchorPane anchorPane;
 
@@ -97,7 +98,7 @@ public class GuiController {
 
         try {
             String fileContent = Files.readString(fileName);
-            mesh = ObjReader.read(fileContent);
+            mesh = ObjReader.read(fileContent,willItWriteInformationToConsole);
             // todo: обработка ошибок
         } catch (IOException exception) {
 
