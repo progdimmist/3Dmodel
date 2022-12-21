@@ -7,6 +7,39 @@ public abstract class AbstractVector implements Vector {
     protected float[] values;
 
     @Override
+    public float getX(){
+        try {
+            return values[0];
+        } catch (Exception e){
+            throw new MathExceptions("Error in Vector values");
+        }
+    }
+    @Override
+    public float getY(){
+        try {
+            return values[1];
+        } catch (Exception e){
+            throw new MathExceptions("Error in Vector values");
+        }
+    }
+    @Override
+    public float getZ(){
+        try {
+            return values[2];
+        } catch (Exception e){
+            throw new MathExceptions("Error in Vector values");
+        }
+    }
+    @Override
+    public float getW(){
+        try {
+            return values[3];
+        } catch (Exception e){
+            throw new MathExceptions("Error in Vector values");
+        }
+    }
+
+    @Override
     public abstract Vector vectorCrossProduct(final Vector v1, final Vector v2);
 
     protected abstract boolean checkLengthInputValues(final float[] values);

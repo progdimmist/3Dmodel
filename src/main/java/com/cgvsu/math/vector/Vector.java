@@ -2,6 +2,14 @@ package com.cgvsu.math.vector;
 
 public interface Vector {
 
+    float getX();
+
+    float getY();
+
+    float getZ();
+
+    float getW();
+
     Vector vectorCrossProduct(final Vector v1, final Vector v2);
 
     void setValues(final float[] values);
