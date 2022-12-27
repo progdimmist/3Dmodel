@@ -1,12 +1,12 @@
-package com.cgvsu.math.tests;
+package com.cgvsu.math;
 
-import Math.exception.MathExceptions;
-import Math.matrix.Matrix;
-import Math.matrix.Matrix3F;
-import Math.vector.Vector;
-import Math.vector.Vector2F;
-import Math.vector.Vector3F;
-import Math.vector.Vector4F;
+import com.cgvsu.math.exception.MathExceptions;
+import com.cgvsu.math.matrix.Matrix;
+import com.cgvsu.math.matrix.Matrix3F;
+import com.cgvsu.math.vector.Vector;
+import com.cgvsu.math.vector.Vector2F;
+import com.cgvsu.math.vector.Vector3F;
+import com.cgvsu.math.vector.Vector4F;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
