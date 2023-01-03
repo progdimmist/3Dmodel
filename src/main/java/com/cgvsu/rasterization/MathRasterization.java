@@ -12,9 +12,8 @@ public class MathRasterization {
         double A = p1p2.y * p1p3.z - p1p2.z * p1p3.y;
         double B = -(p1p2.x * p1p3.z - p1p2.z * p1p3.x);
         double C = p1p2.x * p1p3.y - p1p2.y * p1p3.x;
-        //double normalLength = Math.sqrt(A * A + B * B + C * C);
-        //return new Vector3d(A/normalLength, B/normalLength, C/normalLength);
-        return new Vector3d(A, B, C);
+        double normalLength = Math.sqrt(A * A + B * B + C * C);
+        return new Vector3d(A/normalLength, B/normalLength, C/normalLength);
     }
 
     public static double getZ(MyPoint3D p1, MyPoint3D p2, MyPoint3D p3, double x, double y) {
@@ -24,12 +23,18 @@ public class MathRasterization {
 
     public static double getCosLight(Camera camera, MyPoint3D p1, MyPoint3D p2, MyPoint3D p3) {
         Vector3d normal = getNormal(p1, p2, p3);
-        double cosLight = Math.abs(
-                (camera.getPosition().x * normal.x + camera.getPosition().y * normal.y + camera.getPosition().z * normal.z) /
-                        ((Math.sqrt(normal.x * normal.x + normal.y * normal.y + normal.z * normal.z)) *
-                        (Math.sqrt(camera.getPosition().x * camera.getPosition().x
-                                + camera.getPosition().y * camera.getPosition().y
-                                + camera.getPosition().z * camera.getPosition().z))));
+        Vector3d normalCamera = new Vector3d(camera.getTarget().x-camera.getPosition().x,
+                camera.getTarget().y-camera.getPosition().y,
+                camera.getTarget().z-camera.getPosition().z);
+        Vector3d normalCameraN = new Vector3d(normalCamera.x/normalCamera.length(),normalCamera.y/normalCamera.length(),normalCamera.z/normalCamera.length());
+        double numerator = normalCameraN.x * normal.x + normalCameraN.y * normal.y + normalCameraN.z * normal.z;
+        double sqrtNormal = Math.sqrt(normal.x * normal.x + normal.y * normal.y + normal.z * normal.z);
+        double sqrtCamera = Math.sqrt(
+                normalCameraN.x * normalCameraN.x
+                        + normalCameraN.y * normalCameraN.y
+                        + normalCameraN.z * normalCameraN.z);
+        double denominator = sqrtNormal * sqrtCamera;
+        double cosLight = Math.abs(numerator / denominator);
         return cosLight;
     }
 }
