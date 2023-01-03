@@ -1,19 +1,18 @@
 package com.cgvsu.render_engine;
 
-import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.cgvsu.GuiController;
 import com.cgvsu.math.Vector3f;
-import com.cgvsu.model.Polygon;
-import com.cgvsu.rasterization.DrawUtilsJavaFX;
 import com.cgvsu.rasterization.GraphicsUtils;
 import com.cgvsu.rasterization.MyColor;
 import com.cgvsu.rasterization.Rasterization;
-import com.cgvsu.triangle.Triangle;
+import com.cgvsu.rasterization.RasterizationTexture;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -38,7 +37,8 @@ public class RenderRasterization {
             final Camera camera,
             final Model mesh,
             final int width,
-            final int height) {
+            final int height,
+            BufferedImage image) throws IOException {
 
         Matrix4f modelMatrix = rotateScaleTranslate();
         Matrix4f viewMatrix = camera.getViewMatrix();
@@ -66,7 +66,16 @@ public class RenderRasterization {
                 resultPoints.add(resultPoint);
             }
 
-            Rasterization.fillTriangle(graphicsUtils,
+            if (GuiController.isTexture){
+                RasterizationTexture.fillTriangle(graphicsUtils,
+                        resultPoints.get(0).x, resultPoints.get(0).y, pointsZ.get(0),
+                        resultPoints.get(1).x, resultPoints.get(1).y, pointsZ.get(1),
+                        resultPoints.get(2).x, resultPoints.get(2).y, pointsZ.get(2),
+                        MyColor.RED, MyColor.RED, MyColor.RED, zBuffer, camera, image,
+                        mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(0)),
+                        mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(1)),
+                        mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(2)));
+            }else Rasterization.fillTriangle(graphicsUtils,
                     resultPoints.get(0).x, resultPoints.get(0).y, pointsZ.get(0),
                     resultPoints.get(1).x, resultPoints.get(1).y, pointsZ.get(1),
                     resultPoints.get(2).x, resultPoints.get(2).y, pointsZ.get(2),
