@@ -135,7 +135,7 @@ public class RasterizationTexture {
             double y1, double y2, double y3,
             double cosLight, BufferedImage image, Vector2f texturePoint1, Vector2f texturePoint2, Vector2f texturePoint3) throws IOException {
 
-        if (x1 >= x2 && x2 >= x3) {
+        /*if (x1 >= x2 && x2 >= x3) {
             double xT=(x-x3)/(x1-x3);
             double yT=(y-y1)/(y3-y1);
             double xI=texturePoint3.getX()+(texturePoint1.getX()-texturePoint3.getX())*xT;
@@ -172,7 +172,17 @@ public class RasterizationTexture {
             double yI=texturePoint1.getY()+(texturePoint3.getY()-texturePoint1.getY())*yT;
             return Texture.getColor(xI,yI,image);
 
-        }
+        }*/
+        double t=((x2-x1)*(y-y1)-(x-x1)*(y2-y1))/((x-x1)*(y3-y2)-(x3-x2)*(y-y1));
+        double xM=x2+(x3-x2)*t;
+        double yM=y2+(y3-y2)*t;
+        double a=(Math.sqrt((xM-x2)*(xM-x2)+(yM-y2)*(yM-y2)))/(Math.sqrt((x3-x2)*(x3-x2)+(y3-y2)*(y3-y2)));
+        double b=(Math.sqrt((x-x1)*(x-x1)+(y-y1)*(y-y1)))/(Math.sqrt((xM-x1)*(xM-x1)+(yM-y1)*(yM-y1)));
+        double uM=texturePoint2.x+(texturePoint3.x-texturePoint2.x)*a;
+        double vM=texturePoint2.y+(texturePoint3.y-texturePoint2.y)*b;
+        double uD=texturePoint1.x+(uM-texturePoint1.x)*a;
+        double vD=texturePoint1.y+(vM-texturePoint1.y)*b;
+        return Texture.getColor(uD,vD,image);
 
     }
 }
