@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="cgvsu" />
         <module name="Simple3DViewer" />
+        <module name="3dModel" />
       </profile>
     </annotationProcessing>
   </component>

@@ -1,7 +1,5 @@
 package com.cgvsu.math.matrix;
 
-// todo переделать названия
-
 import com.cgvsu.math.exception.MathExceptions;
 import com.cgvsu.math.vector.Vector;
 

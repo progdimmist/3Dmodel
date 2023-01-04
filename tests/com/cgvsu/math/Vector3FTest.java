@@ -1,8 +1,8 @@
-package com.cgvsu.math.tests;
+package com.cgvsu.math;
 
-import Math.vector.Vector;
-import Math.vector.Vector2F;
-import Math.vector.Vector3F;
+import com.cgvsu.math.vector.Vector;
+import com.cgvsu.math.vector.Vector2F;
+import com.cgvsu.math.vector.Vector3F;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;

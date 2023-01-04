@@ -44,7 +44,6 @@ public class Matrix3F extends AbstractSquareMatrix implements Matrix {
         return values.length == 3 && values[0].length == 3 && values[1].length == 3 && values[2].length == 3;
     }
 
-    // todo все в абстракцию
     @Override
     public Vector productMatrixOnVector(final Matrix m1, final Vector v1) {
 

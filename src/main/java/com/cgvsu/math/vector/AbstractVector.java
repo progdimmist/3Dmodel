@@ -111,7 +111,6 @@ public abstract class AbstractVector implements Vector {
 
         float[] tmp = new float[v1.getSize()];
 
-        // todo check 0
         if (scalar != 0) {
 
             for (int i = 0; i < v1.getSize(); i++) {
