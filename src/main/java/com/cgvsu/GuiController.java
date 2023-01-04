@@ -1,7 +1,6 @@
 package com.cgvsu;
 
 
-
 import com.cgvsu.rasterization.DrawUtilsJavaFX;
 import com.cgvsu.rasterization.GraphicsUtils;
 import com.cgvsu.render_engine.RenderRasterization;
@@ -81,7 +80,7 @@ public class GuiController {
             canvas.getGraphicsContext2D().clearRect(0, 0, width, height);
             camera.get(numberCamera).setAspectRatio((float) (width / height));
 
-            if (mesh.size()!=0) {
+            if (mesh.size() != 0) {
                 try {
                     RenderRasterization.render(canvas.getGraphicsContext2D(), graphicsUtils, camera.get(numberCamera), mesh.get(numberMesh), (int) width, (int) height, image);
                 } catch (IOException e) {
@@ -169,15 +168,17 @@ public class GuiController {
     @FXML
     private void loadTexture() throws IOException {
 
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG (*.jpg)", "*.jpg"));
-        fileChooser.setTitle("Load jpg");
-        File file = fileChooser.showOpenDialog((Stage) canvas.getScene().getWindow());
+        if (!isTexture) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG (*.jpg)", "*.jpg"));
+            fileChooser.setTitle("Load jpg");
+            File file = fileChooser.showOpenDialog((Stage) canvas.getScene().getWindow());
 
-        if (file == null) {
-            return;
+            if (file == null) {
+                return;
+            }
+            image = ImageIO.read(file);
         }
-        image = ImageIO.read(file);
         isTexture = !isTexture;
 
     }
