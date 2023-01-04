@@ -6,12 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.cgvsu.GuiController;
 import com.cgvsu.math.Vector3f;
 import com.cgvsu.rasterization.GraphicsUtils;
 import com.cgvsu.rasterization.MyColor;
 import com.cgvsu.rasterization.Rasterization;
-import com.cgvsu.rasterization.RasterizationTexture;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -66,20 +64,15 @@ public class RenderRasterization {
                 resultPoints.add(resultPoint);
             }
 
-            if (GuiController.isTexture){
-                RasterizationTexture.fillTriangle(graphicsUtils,
-                        resultPoints.get(0).x, resultPoints.get(0).y, pointsZ.get(0),
-                        resultPoints.get(1).x, resultPoints.get(1).y, pointsZ.get(1),
-                        resultPoints.get(2).x, resultPoints.get(2).y, pointsZ.get(2),
-                        MyColor.RED, MyColor.RED, MyColor.RED, zBuffer, camera, image,
-                        mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(0)),
-                        mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(1)),
-                        mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(2)));
-            }else Rasterization.fillTriangle(graphicsUtils,
+
+            Rasterization.fillTriangle(graphicsUtils,
                     resultPoints.get(0).x, resultPoints.get(0).y, pointsZ.get(0),
                     resultPoints.get(1).x, resultPoints.get(1).y, pointsZ.get(1),
                     resultPoints.get(2).x, resultPoints.get(2).y, pointsZ.get(2),
-                    MyColor.RED, MyColor.RED, MyColor.RED, zBuffer, camera);
+                    MyColor.RED, MyColor.RED, MyColor.RED, zBuffer, camera, image,
+                    mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(0)),
+                    mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(1)),
+                    mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(2)));
         }
         for (Double[] doubles : zBuffer) {
             Arrays.fill(doubles, null);

@@ -177,11 +177,6 @@ public class GuiController {
         if (file == null) {
             return;
         }
-
-        /*Path fileName = Path.of(file.getAbsolutePath());
-        BufferedImage bimg = ImageIO.read(new File(fileName.toUri()));
-        int widthPng = bimg.getWidth();
-        int heightPng = bimg.getHeight();*/
         image = ImageIO.read(file);
         isTexture = !isTexture;
 
