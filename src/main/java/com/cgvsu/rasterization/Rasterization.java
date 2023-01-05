@@ -2,7 +2,7 @@ package com.cgvsu.rasterization;
 
 
 import com.cgvsu.GuiController;
-import com.cgvsu.math.Vector2f;
+import com.cgvsu.math.vector.Vector2F;
 import com.cgvsu.render_engine.Camera;
 
 import java.awt.image.BufferedImage;
@@ -18,7 +18,7 @@ public class Rasterization {
             MyPoint3D p1, MyPoint3D p2, MyPoint3D p3,
             MyColor myColor1, MyColor myColor2, MyColor myColor3,
             Double[][] zBuffer, Camera camera, BufferedImage image,
-            Vector2f texturePoint1, Vector2f texturePoint2, Vector2f texturePoint3) throws IOException {
+            Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3) throws IOException {
 
         List<MyPoint3D> points = new ArrayList<>(Arrays.asList(p1, p2, p3));
 
@@ -27,7 +27,7 @@ public class Rasterization {
             MyPoint3D tmp = points.get(1);
             points.set(1, points.get(0));
             points.set(0, tmp);
-            Vector2f tmp1 = texturePoint1;
+            Vector2F tmp1 = texturePoint1;
             texturePoint1 = texturePoint2;
             texturePoint2 = tmp1;
         }
@@ -35,14 +35,14 @@ public class Rasterization {
             MyPoint3D tmp = points.get(2);
             points.set(2, points.get(1));
             points.set(1, tmp);
-            Vector2f tmp1 = texturePoint2;
+            Vector2F tmp1 = texturePoint2;
             texturePoint2 = texturePoint3;
             texturePoint3 = tmp1;
             if (points.get(0).getY() > points.get(1).getY()) {
                 MyPoint3D tmp2 = points.get(1);
                 points.set(1, points.get(0));
                 points.set(0, tmp2);
-                Vector2f tmp3 = texturePoint1;
+                Vector2F tmp3 = texturePoint1;
                 texturePoint1 = texturePoint2;
                 texturePoint2 = tmp3;
             }
@@ -81,7 +81,7 @@ public class Rasterization {
             double x3, double y3, double z3,
             MyColor myColor1, MyColor myColor2, MyColor myColor3,
             Double[][] zBuffer, Camera camera, BufferedImage image,
-            Vector2f texturePoint1, Vector2f texturePoint2, Vector2f texturePoint3) throws IOException {
+            Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3) throws IOException {
         fillTriangle(gr, new MyPoint3D(x1, y1, z1), new MyPoint3D(x2, y2, z2), new MyPoint3D(x3, y3, z3),
                 myColor1, myColor2, myColor3, zBuffer, camera, image, texturePoint1, texturePoint2, texturePoint3);
     }
@@ -97,7 +97,7 @@ public class Rasterization {
             double y1, double y2, double y3,
             double z1, double z2, double z3,
             Double[][] zBuffer, Camera camera, double cosLight, BufferedImage image,
-            Vector2f texturePoint1, Vector2f texturePoint2, Vector2f texturePoint3) throws IOException {
+            Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3) throws IOException {
 
         if (Double.compare(startX, endX) > 0) {
             double temp = startX;
@@ -124,7 +124,7 @@ public class Rasterization {
             double x, double y,
             double x1, double x2, double x3,
             double y1, double y2, double y3,
-            BufferedImage image, Vector2f texturePoint1, Vector2f texturePoint2, Vector2f texturePoint3) throws IOException {
+            BufferedImage image, Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3) throws IOException {
         if (!GuiController.isTexture) {
             double detT = (y2 - y3) * (x1 - x3) + (x3 - x2) * (y1 - y3);
 
@@ -156,8 +156,8 @@ public class Rasterization {
 
             // do interpolation
 
-            double uI = u * texturePoint1.x + v * texturePoint2.x + w * texturePoint3.x;
-            double vI = u * texturePoint1.y + v * texturePoint2.y + w * texturePoint3.y;
+            double uI = u * texturePoint1.getX() + v * texturePoint2.getX() + w * texturePoint3.getX();
+            double vI = u * texturePoint1.getY() + v * texturePoint2.getY() + w * texturePoint3.getY();
             return getColorTexture(uI, vI, image);
         }
     }

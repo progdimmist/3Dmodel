@@ -89,9 +89,9 @@ class AffineTransformTest {
         Vector v = new Vector3F(new float[]{1, 2, 3});
         Vector vTransl = new Vector3F(new float[]{1, 2, 3});
 
-        v = at.translation(v,vTransl);
+        v = at.translation(v,1,2,3);
 
-        Vector expected = new Vector4F(new float[]{2,4,6,1});
+        Vector expected = new Vector3F(new float[]{2,4,6});
 
         assertArrayEquals(expected.getValues(), v.getValues(), 0.001f);
 

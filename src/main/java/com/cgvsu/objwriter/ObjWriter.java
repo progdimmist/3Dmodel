@@ -2,6 +2,8 @@ package com.cgvsu.objwriter;
 
 import com.cgvsu.math.Vector2f;
 import com.cgvsu.math.Vector3f;
+import com.cgvsu.math.vector.Vector2F;
+import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.model.Model;
 import com.cgvsu.model.Polygon;
 
@@ -30,22 +32,22 @@ public class ObjWriter {
         return listFileContent;
     }
 
-    public static void writeVertices(final ArrayList<Vector3f> vertices, ArrayList<String> outListFileContent) {
-        for (Vector3f vertex : vertices) {
+    public static void writeVertices(final ArrayList<Vector3F> vertices, ArrayList<String> outListFileContent) {
+        for (Vector3F vertex : vertices) {
             outListFileContent.add(OBJ_VERTEX_TOKEN + " " + vertex.getX()
                     + " " + vertex.getY() + " " + vertex.getZ());
         }
     }
 
-    public static void writeTextureVertices(final ArrayList<Vector2f> textureVertices, ArrayList<String> outListFileContent) {
-        for (Vector2f textureVertex : textureVertices) {
+    public static void writeTextureVertices(final ArrayList<Vector2F> textureVertices, ArrayList<String> outListFileContent) {
+        for (Vector2F textureVertex : textureVertices) {
             outListFileContent.add(OBJ_TEXTURE_TOKEN + " " + textureVertex.getX()
                     + " " + textureVertex.getY());
         }
     }
 
-    public static void writeNormals(final ArrayList<Vector3f> normals, ArrayList<String> outListFileContent) {
-        for (Vector3f normal : normals) {
+    public static void writeNormals(final ArrayList<Vector3F> normals, ArrayList<String> outListFileContent) {
+        for (Vector3F normal : normals) {
             outListFileContent.add(OBJ_NORMAL_TOKEN + " " + normal.getX()
                     + " " + normal.getY() + " " + normal.getZ());
         }
