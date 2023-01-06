@@ -9,7 +9,6 @@ public interface Vector {
     float getZ();
 
     float getW();
-    float length();
 
     Vector vectorCrossProduct(final Vector v1, final Vector v2);
 

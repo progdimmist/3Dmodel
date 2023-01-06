@@ -28,11 +28,6 @@ public class Vector2F extends AbstractVector implements Vector {
     }
 
     @Override
-    public float length() {
-        return (float) Math.sqrt(values[0]*values[0]+values[1]*values[1]);
-    }
-
-    @Override
     protected boolean checkLengthInputValues(float[] values) {
         return values.length == 2;
     }

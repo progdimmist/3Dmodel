@@ -36,10 +36,6 @@ public class Vector3F extends AbstractVector implements Vector {
         vRes.setValues(tmp);
         return vRes;
     }
-    @Override
-    public float length() {
-        return (float) Math.sqrt(values[0]*values[0]+values[1]*values[1]+values[2]*values[2]);
-    }
 
     @Override
     protected boolean checkLengthInputValues(float[] values) {
