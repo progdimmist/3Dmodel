@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.cgvsu.math.Vector3f;
 import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.rasterization.GraphicsUtils;
 import com.cgvsu.rasterization.MyColor;
@@ -58,8 +57,7 @@ public class RenderRasterization {
             for (int vertexInPolygonInd = 0; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
                 Vector3F vertex = mesh.vertices.get(mesh.trianglePolygons.get(i).getVertexIndices().get(vertexInPolygonInd));
 
-                javax.vecmath.Vector3f vertexVecmath = new javax.vecmath.Vector3f(vertex.getX(), vertex.getY(),
-                        vertex.getZ());
+                javax.vecmath.Vector3f vertexVecmath = new javax.vecmath.Vector3f(vertex.getX(), vertex.getY(), vertex.getZ());
                 pointsZ.add((double) vertex.getZ());
 
                 Point2f resultPoint = vertexToPoint(multiplyMatrix4ByVector3(modelViewProjectionMatrix, vertexVecmath), width, height);

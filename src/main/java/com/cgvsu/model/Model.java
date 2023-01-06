@@ -1,8 +1,10 @@
 package com.cgvsu.model;
+
 import com.cgvsu.math.vector.Vector2F;
 import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.objreader.ReaderExceptions;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Model {

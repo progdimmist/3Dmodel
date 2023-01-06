@@ -1,7 +1,6 @@
 package com.cgvsu.objwriter;
 
-import com.cgvsu.math.Vector2f;
-import com.cgvsu.math.Vector3f;
+
 import com.cgvsu.math.vector.Vector2F;
 import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.model.Model;
