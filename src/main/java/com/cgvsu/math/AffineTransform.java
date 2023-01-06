@@ -38,15 +38,13 @@ public class AffineTransform {
                              float translationX, float translationY, float translationZ){
         Vector3F tmpVector;
 
-        for(int vertex = 0; vertex < transformingVertex.size(); vertex++){
-            tmpVector = transformingVertex.get(vertex);
-            tmpVector = scale(tmpVector, scaleOnX,scaleOnY,scaleOnZ);
+        for (Vector3F vector3F : transformingVertex) {
+            tmpVector = vector3F;
+            tmpVector = scale(tmpVector, scaleOnX, scaleOnY, scaleOnZ);
             tmpVector = rotation(tmpVector, angleX, angleY, angleZ);
-            tmpVector = translation(tmpVector, translationX,translationY,translationZ);
+            tmpVector = translation(tmpVector, translationX, translationY, translationZ);
             transformedVertex.add(tmpVector);
         }
-
-
     }
 
     public Vector3F translation(Vector v, float translationX, float translationY, float translationZ){
