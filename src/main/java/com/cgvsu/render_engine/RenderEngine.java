@@ -1,19 +1,10 @@
 package com.cgvsu.render_engine;
 
-import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import com.cgvsu.math.Vector3f;
-import com.cgvsu.model.Polygon;
-import com.cgvsu.rasterization.DrawUtilsJavaFX;
+import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.rasterization.GraphicsUtils;
-import com.cgvsu.rasterization.MyColor;
-import com.cgvsu.rasterization.Rasterization;
-import com.cgvsu.triangle.Triangle;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -54,9 +45,9 @@ public class RenderEngine {
 
             ArrayList<Point3f> resultPoints = new ArrayList<>();
             for (int vertexInPolygonInd = 0; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
-                Vector3f vertex = mesh.vertices.get(mesh.polygons.get(polygonInd).getVertexIndices().get(vertexInPolygonInd));
+                Vector3F vertex = mesh.vertices.get(mesh.polygons.get(polygonInd).getVertexIndices().get(vertexInPolygonInd));
 
-                javax.vecmath.Vector3f vertexVecmath = new javax.vecmath.Vector3f(vertex.x, vertex.y, vertex.z);
+                javax.vecmath.Vector3f vertexVecmath = new javax.vecmath.Vector3f(vertex.getX(), vertex.getY(), vertex.getZ());
 
                 Point3f resultPoint = vertexToPoint3f(multiplyMatrix4ByVector3(modelViewProjectionMatrix, vertexVecmath), width, height);
                 resultPoints.add(resultPoint);

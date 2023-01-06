@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="cgvsu" />
+        <module name="ITпроекты3семSimple3DViewer" />
         <module name="Simple3DViewer" />
         <module name="3dModel" />
+        <module name="cgvsu" />
       </profile>
     </annotationProcessing>
   </component>

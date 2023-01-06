@@ -34,5 +34,9 @@ public class Vector4F extends AbstractVector implements Vector {
     protected boolean checkLengthInputValues(float[] values) {
         return values.length == 4;
     }
+    @Override
+    public float length() {
+        return (float) Math.sqrt(values[0]*values[0]+values[1]*values[1]+values[2]*values[2]+values[3]*values[3]);
+    }
 
 }

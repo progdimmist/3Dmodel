@@ -42,6 +42,9 @@ public abstract class AbstractVector implements Vector {
     @Override
     public abstract Vector vectorCrossProduct(final Vector v1, final Vector v2);
 
+    @Override
+    public abstract float length();
+
     protected abstract boolean checkLengthInputValues(final float[] values);
 
     @Override

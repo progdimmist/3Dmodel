@@ -1,11 +1,11 @@
 package com.cgvsu.objreader;
-import com.cgvsu.math.Vector2f;
-import com.cgvsu.math.Vector3f;
+
+import com.cgvsu.math.vector.Vector2F;
+import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.model.Model;
 import com.cgvsu.model.Polygon;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,11 +62,11 @@ public class ObjReader {
 	}
 
 	// Всем методам кроме основного я поставил модификатор доступа protected, чтобы обращаться к ним в тестах
-	protected static Vector3f parseVertex(final List<String> listOfWordsWithoutToken, final int lineInd) {
+	protected static Vector3F parseVertex(final List<String> listOfWordsWithoutToken, final int lineInd) {
 		if (listOfWordsWithoutToken.size() != 3)
 			throw new ReaderExceptions.ObjReaderException("Wrong number of vertex arguments.", lineInd);
 		try {
-			return new Vector3f(
+			return new Vector3F(
 					Float.parseFloat(listOfWordsWithoutToken.get(0)),
 					Float.parseFloat(listOfWordsWithoutToken.get(1)),
 					Float.parseFloat(listOfWordsWithoutToken.get(2)));
@@ -75,11 +75,11 @@ public class ObjReader {
 		}
 	}
 
-	protected static Vector2f parseTextureVertex(final List<String> listOfWordsWithoutToken, final int lineInd) {
+	protected static Vector2F parseTextureVertex(final List<String> listOfWordsWithoutToken, final int lineInd) {
 		if (listOfWordsWithoutToken.size() != 2 && listOfWordsWithoutToken.size() != 3)
 			throw new ReaderExceptions.ObjReaderException("Wrong number of texture vertex arguments.", lineInd);
 		try {
-			return new Vector2f(
+			return new Vector2F(
 					Float.parseFloat(listOfWordsWithoutToken.get(0)),
 					Float.parseFloat(listOfWordsWithoutToken.get(1)));
 		} catch(NumberFormatException e) {
@@ -87,11 +87,11 @@ public class ObjReader {
 		}
 	}
 
-	protected static Vector3f parseNormal(final List<String> listOfWordsWithoutToken, final int lineInd) {
+	protected static Vector3F parseNormal(final List<String> listOfWordsWithoutToken, final int lineInd) {
 		if (listOfWordsWithoutToken.size() != 3)
 			throw new ReaderExceptions.ObjReaderException("Wrong number of normal arguments.", lineInd);
 		try {
-			return new Vector3f(
+			return new Vector3F(
 					Float.parseFloat(listOfWordsWithoutToken.get(0)),
 					Float.parseFloat(listOfWordsWithoutToken.get(1)),
 					Float.parseFloat(listOfWordsWithoutToken.get(2)));

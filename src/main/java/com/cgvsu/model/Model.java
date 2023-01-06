@@ -1,6 +1,7 @@
 package com.cgvsu.model;
-import com.cgvsu.math.Vector2f;
-import com.cgvsu.math.Vector3f;
+
+import com.cgvsu.math.vector.Vector2F;
+import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.objreader.ReaderExceptions;
 
 import java.lang.reflect.Array;
@@ -8,14 +9,14 @@ import java.util.*;
 
 public class Model {
 
-    public ArrayList<Vector3f> vertices = new ArrayList<Vector3f>();
-    public ArrayList<Vector2f> textureVertices = new ArrayList<Vector2f>();
-    public ArrayList<Vector3f> normals = new ArrayList<Vector3f>();
+    public ArrayList<Vector3F> vertices = new ArrayList<Vector3F>();
+    public ArrayList<Vector2F> textureVertices = new ArrayList<Vector2F>();
+    public ArrayList<Vector3F> normals = new ArrayList<Vector3F>();
     public ArrayList<Polygon> polygons = new ArrayList<Polygon>();
     public ArrayList<Polygon> trianglePolygons = new ArrayList<Polygon>();
 
-    public Model(final ArrayList<Vector3f> vertices, final ArrayList<Vector2f> textureVertices,
-                 final ArrayList<Vector3f> normals, final ArrayList<Polygon> polygons,
+    public Model(final ArrayList<Vector3F> vertices, final ArrayList<Vector2F> textureVertices,
+                 final ArrayList<Vector3F> normals, final ArrayList<Polygon> polygons,
                  final ArrayList<Polygon> trianglePolygons) {
         this.vertices = vertices;
         this.textureVertices = textureVertices;
@@ -38,15 +39,15 @@ public class Model {
     public void setTrianglePolygons(ArrayList<Polygon> polygons){
         this.trianglePolygons=polygons;
     }
-    public List<Vector3f> getVertices() {
+    public List<Vector3F> getVertices() {
         return vertices;
     }
 
-    public List<Vector2f> getTextureVertices() {
+    public List<Vector2F> getTextureVertices() {
         return textureVertices;
     }
 
-    public List<Vector3f> getNormals() {
+    public List<Vector3F> getNormals() {
         return normals;
     }
 
@@ -54,15 +55,15 @@ public class Model {
         return polygons;
     }
 
-    public void setVertices(final ArrayList<Vector3f> vertices) {
+    public void setVertices(final ArrayList<Vector3F> vertices) {
         this.vertices = vertices;
     }
 
-    public void setTextureVertices(final ArrayList<Vector2f> vertices) {
+    public void setTextureVertices(final ArrayList<Vector2F> vertices) {
         this.textureVertices = vertices;
     }
 
-    public void setNormals(final ArrayList<Vector3f> vertices) {
+    public void setNormals(final ArrayList<Vector3F> vertices) {
         this.normals = vertices;
     }
 
