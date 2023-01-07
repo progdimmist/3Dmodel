@@ -8,6 +8,8 @@ import com.cgvsu.math.vector.Vector4F;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractVectorTest {
@@ -86,8 +88,18 @@ class AbstractVectorTest {
         float[] vectorValueSecond = new float[]{-4.21f, 2.34f};
         Vector vector1 = new Vector2F(vectorValueFirst);
         Vector vector2 = new Vector2F(vectorValueSecond);
+        Vector vRes = new Vector2F();
+        vRes.sumVectors(vector1, vector2);
 
         float[] expected = new float[]{-7.543f, 3.238f};
+        assertArrayEquals(expected, vRes.getValues());
+
+        vectorValueFirst = new float[]{-3.333f, 0.898f};
+        vectorValueSecond = new float[]{-4.21f, 2.34f};
+        vector1 = new Vector2F(vectorValueFirst);
+        vector2 = new Vector2F(vectorValueSecond);
+
+        expected = new float[]{-7.543f, 3.238f};
 
         vector1.sumVectors(vector2);
         assertArrayEquals(expected, vector1.getValues());

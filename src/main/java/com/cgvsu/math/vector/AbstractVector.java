@@ -7,6 +7,59 @@ public abstract class AbstractVector implements Vector {
     protected float[] values;
 
     @Override
+    public Vector minusTwoVectors(final Vector v1, final Vector v2) {
+
+        if (v1.getSize() != v2.getSize()) {
+            throw new MathExceptions();
+        }
+        float[] tmp = new float[v1.getSize()];
+
+        for (int i = 0; i < v1.getSize(); i++) {
+            tmp[i] = v1.getValues()[i] - v2.getValues()[i];
+        }
+
+        this.values = tmp;
+        this.size = tmp.length;
+
+        return this;
+    }
+
+    @Override
+    public Vector productVectorOnScalar(final Vector v1, final float scalar) {
+
+        float[] tmp = new float[v1.getSize()];
+
+        for (int i = 0; i < v1.getSize(); i++) {
+            tmp[i] = v1.getValues()[i] * scalar;
+        }
+
+        this.values = tmp;
+        this.size = tmp.length;
+
+        return this;
+    }
+
+    @Override
+    public Vector divisionVectorOnScalar(final Vector v1, final float scalar) {
+
+        float[] tmp = new float[v1.getSize()];
+
+        if (scalar == 0) {
+            throw new MathExceptions();
+        }
+
+        for (int i = 0; i < v1.getSize(); i++) {
+            tmp[i] = v1.getValues()[i] / scalar;
+        }
+
+        this.values = tmp;
+        this.size = tmp.length;
+
+        return this;
+    }
+
+
+    @Override
     public float getX() {
         try {
             return values[0];
@@ -43,7 +96,7 @@ public abstract class AbstractVector implements Vector {
     }
 
     @Override
-    public abstract void vectorCrossProduct( final Vector v2);
+    public abstract void vectorCrossProduct(final Vector v2);
 
     protected abstract boolean checkLengthInputValues(final float[] values);
 
@@ -79,6 +132,23 @@ public abstract class AbstractVector implements Vector {
 
         this.values = tmp;
         this.size = tmp.length;
+    }
+
+    @Override
+    public Vector sumVectors(final Vector v1, final Vector v2) {
+        if (v1.getSize() != v2.getSize()) {
+            throw new MathExceptions();
+        }
+
+        float[] tmp = new float[v1.getSize()];
+
+        for (int i = 0; i < v1.getSize(); i++) {
+            tmp[i] = v1.getValues()[i] + v2.getValues()[i];
+        }
+
+        this.values = tmp;
+        this.size = tmp.length;
+        return this;
     }
 
     @Override
