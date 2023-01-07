@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class AffineTransform {
 
-    public ArrayList<Vector3F> transformingVertex;
-    public ArrayList<Vector3F> transformedVertex;
+    public ArrayList<Vector3F> transformingVertex = new ArrayList<>();
+    public ArrayList<Vector3F> transformedVertex = new ArrayList<>();
 
     public AffineTransform(ArrayList<Vector3F> vertex) {
         this.transformingVertex = vertex;

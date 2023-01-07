@@ -1,6 +1,7 @@
 package com.cgvsu;
 
 
+import com.cgvsu.math.AffineTransform;
 import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.rasterization.DrawUtilsJavaFX;
 import com.cgvsu.rasterization.GraphicsUtils;
@@ -192,7 +193,7 @@ public class GuiController {
     @FXML
     public void addCamera() {
         camera.add(new Camera(
-                new Vector3F(0, 00, 100),
+                new Vector3F(0, 0, 100),
                 new Vector3F(0, 0, 0),
                 1.0F, 1, 0.01F, 100));
         numberCamera++;
@@ -235,6 +236,21 @@ public class GuiController {
     @FXML
     public void handleCameraLeft(ActionEvent actionEvent) {
         camera.get(numberCamera).movePosition(new Vector3F(TRANSLATION, 0, 0));
+    }
+
+    @FXML
+    public void handleCameraAroundX(ActionEvent actionEvent) {
+        camera.get(numberCamera).rotationPositionAroundX(3);
+    }
+
+    @FXML
+    public void handleCameraAroundY(ActionEvent actionEvent) {
+        camera.get(numberCamera).rotationPositionAroundY(3);
+    }
+
+    @FXML
+    public void handleCameraAroundZ(ActionEvent actionEvent) {
+        camera.get(numberCamera).rotationPositionAroundZ(3);
     }
 
     @FXML
