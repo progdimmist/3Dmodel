@@ -108,11 +108,11 @@ public class Rasterization {
         for (int x = (int) startX + 1; x < endX; x++) {
             double z = MathRasterization.getZ(new MyPoint3D(x1, y1, z1), new MyPoint3D(x2, y2, z2), new MyPoint3D(x3, y3, z3), x, y);
             if (x >= 0 && y >= 0) {
-                if (zBuffer[x][y] == null || zBuffer[x][y] > Math.abs(z - camera.getPosition().z)) {
+                if (zBuffer[x][y] == null || zBuffer[x][y] > Math.abs(z - camera.getPosition().getZ())) {
                     MyColor color = getColor(myColor1, myColor2, myColor3, x, y, x1, x2, x3, y1, y2, y3, image,
                             texturePoint1, texturePoint2, texturePoint3);
                     gr.setPixel(x, y, new MyColor(color.getRed() * cosLight, color.getGreen() * cosLight, color.getBlue() * cosLight));
-                    zBuffer[x][y] = Math.abs(z - camera.getPosition().z);
+                    zBuffer[x][y] = Math.abs(z - camera.getPosition().getZ());
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.cgvsu;
 
 
+import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.rasterization.DrawUtilsJavaFX;
 import com.cgvsu.rasterization.GraphicsUtils;
 import com.cgvsu.render_engine.RenderRasterization;
@@ -55,8 +56,8 @@ public class GuiController {
     private final List<Model> mesh = new ArrayList<>();
 
     private List<Camera> camera = new ArrayList<>(Arrays.asList(new Camera(
-            new Vector3f(0, 00, 100),
-            new Vector3f(0, 0, 0),
+            new Vector3F(0, 00, 100),
+            new Vector3F(0, 0, 0),
             1.0F, 1, 0.01F, 100)));
 
     private int numberCamera = 0;
@@ -185,14 +186,14 @@ public class GuiController {
 
     @FXML
     public void handleCameraForward(ActionEvent actionEvent) {
-        camera.get(numberCamera).movePosition(new Vector3f(0, 0, -TRANSLATION));
+        camera.get(numberCamera).movePosition(new Vector3F(0, 0, -TRANSLATION));
     }
 
     @FXML
     public void addCamera() {
         camera.add(new Camera(
-                new Vector3f(0, 00, 100),
-                new Vector3f(0, 0, 0),
+                new Vector3F(0, 00, 100),
+                new Vector3F(0, 0, 0),
                 1.0F, 1, 0.01F, 100));
         numberCamera++;
     }
@@ -228,26 +229,26 @@ public class GuiController {
 
     @FXML
     public void handleCameraBackward(ActionEvent actionEvent) {
-        camera.get(numberCamera).movePosition(new Vector3f(0, 0, TRANSLATION));
+        camera.get(numberCamera).movePosition(new Vector3F(0, 0, TRANSLATION));
     }
 
     @FXML
     public void handleCameraLeft(ActionEvent actionEvent) {
-        camera.get(numberCamera).movePosition(new Vector3f(TRANSLATION, 0, 0));
+        camera.get(numberCamera).movePosition(new Vector3F(TRANSLATION, 0, 0));
     }
 
     @FXML
     public void handleCameraRight(ActionEvent actionEvent) {
-        camera.get(numberCamera).movePosition(new Vector3f(-TRANSLATION, 0, 0));
+        camera.get(numberCamera).movePosition(new Vector3F(-TRANSLATION, 0, 0));
     }
 
     @FXML
     public void handleCameraUp(ActionEvent actionEvent) {
-        camera.get(numberCamera).movePosition(new Vector3f(0, TRANSLATION, 0));
+        camera.get(numberCamera).movePosition(new Vector3F(0, TRANSLATION, 0));
     }
 
     @FXML
     public void handleCameraDown(ActionEvent actionEvent) {
-        camera.get(numberCamera).movePosition(new Vector3f(0, -TRANSLATION, 0));
+        camera.get(numberCamera).movePosition(new Vector3F(0, -TRANSLATION, 0));
     }
 }

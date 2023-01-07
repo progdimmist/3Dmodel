@@ -89,7 +89,7 @@ class AbstractVectorTest {
 
         float[] expected = new float[]{-7.543f, 3.238f};
 
-        vector1 = vector1.sumVectors(vector1, vector2);
+        vector1.sumVectors(vector2);
         assertArrayEquals(expected, vector1.getValues());
 
         MathExceptions thrown = Assertions.assertThrows(MathExceptions.class, () -> {
@@ -97,7 +97,7 @@ class AbstractVectorTest {
             float[] vectorSecond = new float[]{-4.21f, 2.34f, 1};
             Vector v1 = new Vector2F(vectorFirst);
             Vector v2 = new Vector3F(vectorSecond);
-            v1.sumVectors(v1, v2);
+            v1.sumVectors(v2);
         });
         Assertions.assertEquals("Error in values!", thrown.getMessage());
     }
@@ -110,7 +110,7 @@ class AbstractVectorTest {
         Vector vector2 = new Vector2F(vectorValueSecond);
 
         float[] expected = new float[]{0.877f, -1.442f};
-        vector1 = vector1.minusTwoVectors(vector1, vector2);
+        vector1.minusTwoVectors(vector2);
         assertArrayEquals(expected, vector1.getValues(), exp);
 
         MathExceptions thrown = Assertions.assertThrows(MathExceptions.class, () -> {
@@ -118,7 +118,7 @@ class AbstractVectorTest {
             float[] vectorSecond = new float[]{-4.21f, 2.34f, 1};
             Vector v1 = new Vector2F(vectorFirst);
             Vector v2 = new Vector3F(vectorSecond);
-            v1.minusTwoVectors(v1, v2);
+            v1.minusTwoVectors(v2);
         });
         Assertions.assertEquals("Error in values!", thrown.getMessage());
     }
@@ -131,7 +131,7 @@ class AbstractVectorTest {
         float scalar = -0.18f;
 
         float[] expected = new float[]{0.59994f,-0.16164f};
-        vector1 = vector1.productVectorOnScalar(vector1, scalar);
+        vector1.productVectorOnScalar(scalar);
         assertArrayEquals(expected, vector1.getValues(), exp);
 
     }
@@ -143,7 +143,7 @@ class AbstractVectorTest {
             float[] vectorFirst = new float[]{-3.333f, 0.898f};
             float scalar = 0;
             Vector v1 = new Vector2F(vectorFirst);
-            v1.divisionVectorOnScalar(v1, scalar);
+            v1.divisionVectorOnScalar(scalar);
         });
 
         float[] vectorValueFirst = new float[]{3.333f, 0.898f};
@@ -151,7 +151,7 @@ class AbstractVectorTest {
         float scalar = -0.18f;
 
         float[] expected = new float[]{-18.516666f, -4.98889f};
-        vector1 = vector1.divisionVectorOnScalar(vector1, scalar);
+        vector1.divisionVectorOnScalar(scalar);
         assertArrayEquals(expected, vector1.getValues(), exp);
 
     }
@@ -183,17 +183,17 @@ class AbstractVectorTest {
         float[] vectorValue = new float[]{-1,0.66f};
         Vector vector = new Vector2F(vectorValue);
         float[] expected = new float[]{-0.834609f, 0.550842f};
-        assertArrayEquals(expected, vector.vectorNormalization(vector).getValues(), exp);
+        assertArrayEquals(expected, vector.vectorNormalization().getValues(), exp);
 
         vectorValue = new float[]{0,0.66f,6.01f};
         vector = new Vector3F(vectorValue);
         expected = new float[]{0, 0.109161f, 0.994024f};
-        assertArrayEquals(expected, vector.vectorNormalization(vector).getValues(), exp);
+        assertArrayEquals(expected, vector.vectorNormalization().getValues(), exp);
 
         vectorValue = new float[]{-2,0.49f,0.00f,1};
         vector = new Vector4F(vectorValue);
         expected = new float[]{-0.873696f, 0.214055f, 0, 0.436848f};
-        assertArrayEquals(expected, vector.vectorNormalization(vector).getValues(), exp);
+        assertArrayEquals(expected, vector.vectorNormalization().getValues(), exp);
 
     }
 
@@ -204,21 +204,21 @@ class AbstractVectorTest {
         Vector vector1 = new Vector2F(vectorValueFirst);
         Vector vector2 = new Vector2F(vectorValueSecond);
 
-        assertEquals(-8.34,vector1.vectorDotProduct(vector1, vector2), exp);
+        assertEquals(-8.34,vector1.vectorDotProduct(vector2), exp);
 
         vectorValueFirst = new float[]{0.56f, 1.22f, -0.11f};
         vectorValueSecond = new float[]{-2.87f, 0.72f, 2.2f};
         vector1 = new Vector3F(vectorValueFirst);
         vector2 = new Vector3F(vectorValueSecond);
 
-        assertEquals(-0.9708,vector1.vectorDotProduct(vector1, vector2), exp);
+        assertEquals(-0.9708,vector1.vectorDotProduct(vector2), exp);
 
         vectorValueFirst = new float[]{2, -0.002f,6.5f,0.03f};
         vectorValueSecond = new float[]{1.001f, -4.87f, 0.08f, 1};
         vector1 = new Vector4F(vectorValueFirst);
         vector2 = new Vector4F(vectorValueSecond);
 
-        assertEquals(2.56174,vector1.vectorDotProduct(vector1, vector2), exp);
+        assertEquals(2.56174,vector1.vectorDotProduct(vector2), exp);
 
 
     }

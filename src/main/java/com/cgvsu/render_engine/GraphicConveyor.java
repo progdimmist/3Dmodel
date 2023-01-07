@@ -1,7 +1,10 @@
 package com.cgvsu.render_engine;
 
+import com.cgvsu.math.vector.Vector3F;
+
 import javax.vecmath.*;
 
+//todo переделать на нормальные вектора и матрицы
 public class GraphicConveyor {
 
     public static Matrix4f rotateScaleTranslate() {
@@ -13,16 +16,16 @@ public class GraphicConveyor {
         return new Matrix4f(matrix);
     }
 
-    public static Matrix4f lookAt(Vector3f eye, Vector3f target) {
+    public static Matrix4f lookAt(Vector3F eye, Vector3F target) {
         return lookAt(eye, target, new Vector3f(0F, 1.0F, 0F));
     }
 
-    public static Matrix4f lookAt(Vector3f eye, Vector3f target, Vector3f up) {
+    public static Matrix4f lookAt(Vector3F eye, Vector3F target, Vector3f up) {
         Vector3f resultX = new Vector3f();
         Vector3f resultY = new Vector3f();
         Vector3f resultZ = new Vector3f();
 
-        resultZ.sub(target, eye);
+        //resultZ.sub(target, eye);
         resultX.cross(up, resultZ);
         resultY.cross(resultZ, resultX);
 
@@ -31,10 +34,12 @@ public class GraphicConveyor {
         resultZ.normalize();
 
         float[] matrix = new float[]{
+
                 resultX.x, resultY.x, resultZ.x, 0,
                 resultX.y, resultY.y, resultZ.y, 0,
                 resultX.z, resultY.z, resultZ.z, 0,
-                -resultX.dot(eye), -resultY.dot(eye), -resultZ.dot(eye), 1};
+                0,0,0,0};
+                //-resultX.dot(eye), -resultY.dot(eye), -resultZ.dot(eye), 1};
         return new Matrix4f(matrix);
     }
 

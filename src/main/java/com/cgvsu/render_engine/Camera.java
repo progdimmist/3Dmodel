@@ -1,12 +1,14 @@
 package com.cgvsu.render_engine;
+import com.cgvsu.math.vector.Vector3F;
+
 import javax.vecmath.Vector3f;
 import javax.vecmath.Matrix4f;
 
 public class Camera {
 
     public Camera(
-            final Vector3f position,
-            final Vector3f target,
+            final Vector3F position,
+            final Vector3F target,
             final float fov,
             final float aspectRatio,
             final float nearPlane,
@@ -19,11 +21,11 @@ public class Camera {
         this.farPlane = farPlane;
     }
 
-    public void setPosition(final Vector3f position) {
+    public void setPosition(final Vector3F position) {
         this.position = position;
     }
 
-    public void setTarget(final Vector3f target) {
+    public void setTarget(final Vector3F target) {
         this.target = target;
     }
 
@@ -31,20 +33,20 @@ public class Camera {
         this.aspectRatio = aspectRatio;
     }
 
-    public Vector3f getPosition() {
+    public Vector3F getPosition() {
         return position;
     }
 
-    public Vector3f getTarget() {
+    public Vector3F getTarget() {
         return target;
     }
 
-    public void movePosition(final Vector3f translation) {
-        this.position.add(translation);
+    public void movePosition(final Vector3F translation) {
+        this.position.sumVectors(translation);
     }
 
-    public void moveTarget(final Vector3f translation) {
-        this.target.add(target);
+    public void moveTarget(final Vector3F translation) {
+        this.target.sumVectors(translation);;
     }
 
     Matrix4f getViewMatrix() {
@@ -55,8 +57,8 @@ public class Camera {
         return GraphicConveyor.perspective(fov, aspectRatio, nearPlane, farPlane);
     }
 
-    private Vector3f position;
-    private Vector3f target;
+    private Vector3F position;
+    private Vector3F target;
     private float fov;
     private float aspectRatio;
     private float nearPlane;

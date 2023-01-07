@@ -7,40 +7,43 @@ public abstract class AbstractVector implements Vector {
     protected float[] values;
 
     @Override
-    public float getX(){
+    public float getX() {
         try {
             return values[0];
-        } catch (Exception e){
-            throw new MathExceptions("Error in Vector values");
-        }
-    }
-    @Override
-    public float getY(){
-        try {
-            return values[1];
-        } catch (Exception e){
-            throw new MathExceptions("Error in Vector values");
-        }
-    }
-    @Override
-    public float getZ(){
-        try {
-            return values[2];
-        } catch (Exception e){
-            throw new MathExceptions("Error in Vector values");
-        }
-    }
-    @Override
-    public float getW(){
-        try {
-            return values[3];
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new MathExceptions("Error in Vector values");
         }
     }
 
     @Override
-    public abstract Vector vectorCrossProduct(final Vector v1, final Vector v2);
+    public float getY() {
+        try {
+            return values[1];
+        } catch (Exception e) {
+            throw new MathExceptions("Error in Vector values");
+        }
+    }
+
+    @Override
+    public float getZ() {
+        try {
+            return values[2];
+        } catch (Exception e) {
+            throw new MathExceptions("Error in Vector values");
+        }
+    }
+
+    @Override
+    public float getW() {
+        try {
+            return values[3];
+        } catch (Exception e) {
+            throw new MathExceptions("Error in Vector values");
+        }
+    }
+
+    @Override
+    public abstract void vectorCrossProduct( final Vector v2);
 
     protected abstract boolean checkLengthInputValues(final float[] values);
 
@@ -63,66 +66,66 @@ public abstract class AbstractVector implements Vector {
     }
 
     @Override
-    public Vector sumVectors(final Vector v1, final Vector v2) {
+    public void sumVectors(final Vector v2) {
 
-        if (v1.getSize() == v2.getSize()) {
-            float[] tmp = new float[v1.getSize()];
+        if (this.getSize() != v2.getSize()) {
+            throw new MathExceptions();
+        }
+        float[] tmp = new float[this.getSize()];
 
-            for (int i = 0; i < v1.getSize(); i++) {
-                tmp[i] = v1.getValues()[i] + v2.getValues()[i];
-            }
-
-            this.values = tmp;
-        } else throw new MathExceptions();
-        return this;
-    }
-
-    @Override
-    public Vector minusTwoVectors(final Vector v1, final Vector v2) {
-
-        if (v1.getSize() == v2.getSize()) {
-            float[] tmp = new float[v1.getSize()];
-
-            for (int i = 0; i < v1.getSize(); i++) {
-                tmp[i] = v1.getValues()[i] - v2.getValues()[i];
-            }
-
-            this.values = tmp;
-        } else throw new MathExceptions();
-        return this;
-    }
-
-    @Override
-    public Vector productVectorOnScalar(final Vector v1, final float scalar) {
-
-        float[] tmp = new float[v1.getSize()];
-
-        for (int i = 0; i < v1.getSize(); i++) {
-            tmp[i] = v1.getValues()[i] * scalar;
+        for (int i = 0; i < this.getSize(); i++) {
+            tmp[i] = this.getValues()[i] + v2.getValues()[i];
         }
 
         this.values = tmp;
-
-        return this;
+        this.size = tmp.length;
     }
 
     @Override
-    public Vector divisionVectorOnScalar(final Vector v1, final float scalar) {
+    public void minusTwoVectors(final Vector v2) {
 
-        float[] tmp = new float[v1.getSize()];
-
-        if (scalar != 0) {
-
-            for (int i = 0; i < v1.getSize(); i++) {
-                tmp[i] = v1.getValues()[i] / scalar;
-            }
-
-            this.values = tmp;
-        } else {
+        if (this.getSize() != v2.getSize()) {
             throw new MathExceptions();
         }
 
-        return this;
+        float[] tmp = new float[this.getSize()];
+
+        for (int i = 0; i < this.getSize(); i++) {
+            tmp[i] = this.getValues()[i] - v2.getValues()[i];
+        }
+
+        this.values = tmp;
+        this.size = tmp.length;
+    }
+
+    @Override
+    public void productVectorOnScalar(final float scalar) {
+
+        float[] tmp = new float[this.getSize()];
+
+        for (int i = 0; i < this.getSize(); i++) {
+            tmp[i] = this.getValues()[i] * scalar;
+        }
+
+        this.values = tmp;
+        this.size = tmp.length;
+    }
+
+    @Override
+    public void divisionVectorOnScalar(final float scalar) {
+
+        float[] tmp = new float[this.getSize()];
+
+        if (scalar == 0) {
+            throw new MathExceptions();
+        }
+
+        for (int i = 0; i < this.getSize(); i++) {
+            tmp[i] = this.getValues()[i] / scalar;
+        }
+
+        this.values = tmp;
+        this.size = tmp.length;
     }
 
     @Override
@@ -137,26 +140,26 @@ public abstract class AbstractVector implements Vector {
     }
 
     @Override
-    public Vector vectorNormalization(final Vector v1) {
+    public Vector vectorNormalization() {
 
-        float[] tmp = new float[v1.getSize()];
+        float[] tmp = new float[this.getSize()];
 
-        float length = v1.vectorLength(v1);
-        for (int i = 0; i < v1.getSize(); i++) {
-            tmp[i] = v1.getValues()[i] / length;
+        float length = this.vectorLength(this);
+        for (int i = 0; i < this.getSize(); i++) {
+            tmp[i] = this.getValues()[i] / length;
         }
 
-        this.values = (tmp);
-
+        this.values = tmp;
+        this.size = tmp.length;
         return this;
     }
 
     @Override
-    public float vectorDotProduct(final Vector v1, final Vector v2) {
+    public float vectorDotProduct(final Vector v2) {
         float tmp = 0;
-        if (v1.getSize() == v2.getSize()) {
-            for (int i = 0; i < v1.getSize(); i++) {
-                tmp = tmp + v1.getValues()[i] * v2.getValues()[i];
+        if (this.getSize() == v2.getSize()) {
+            for (int i = 0; i < this.getSize(); i++) {
+                tmp = tmp + this.getValues()[i] * v2.getValues()[i];
             }
         } else throw new MathExceptions();
         return tmp;
