@@ -14,15 +14,17 @@ public class Model {
     public ArrayList<Vector3F> normals = new ArrayList<Vector3F>();
     public ArrayList<Polygon> polygons = new ArrayList<Polygon>();
     public ArrayList<Polygon> trianglePolygons = new ArrayList<Polygon>();
+    public boolean isTexture = false;
 
     public Model(final ArrayList<Vector3F> vertices, final ArrayList<Vector2F> textureVertices,
                  final ArrayList<Vector3F> normals, final ArrayList<Polygon> polygons,
-                 final ArrayList<Polygon> trianglePolygons) {
+                 final ArrayList<Polygon> trianglePolygons,boolean isTexture) {
         this.vertices = vertices;
         this.textureVertices = textureVertices;
         this.normals = normals;
         this.polygons = polygons;
         this.trianglePolygons=trianglePolygons;
+        this.isTexture=false;
     }
 
     public Model() {
@@ -31,6 +33,7 @@ public class Model {
         normals = new ArrayList<>();
         polygons = new ArrayList<>();
         trianglePolygons=new ArrayList<>();
+        this.isTexture=false;
     }
 
     public void setPolygons(ArrayList<Polygon> polygons){

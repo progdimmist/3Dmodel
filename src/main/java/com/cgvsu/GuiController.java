@@ -43,7 +43,7 @@ public class GuiController {
     final private float TRANSLATION = 0.5F;
     private boolean isStructure = false;
     public static boolean isLight = true;
-    public static boolean isTexture = false;
+
     private final static boolean willItWriteInformationToConsole = true;
     private BufferedImage image = null;
 
@@ -69,7 +69,7 @@ public class GuiController {
             1.0F, 1, 0.01F, 100)));
 
     private int numberCamera = 0;
-    private int numberMesh = 0;
+    public static int numberMesh = 0;
 
     private Timeline timeline;
 
@@ -182,7 +182,7 @@ public class GuiController {
     @FXML
     private void loadTexture() throws IOException {
 
-        if (!isTexture) {
+        if (!mesh.get(numberMesh).isTexture) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG (*.jpg)", "*.jpg"));
             fileChooser.setTitle("Load jpg");
@@ -193,7 +193,7 @@ public class GuiController {
             }
             image = ImageIO.read(file);
         }
-        isTexture = !isTexture;
+        mesh.get(numberMesh).isTexture = !mesh.get(numberMesh).isTexture;
 
     }
 
