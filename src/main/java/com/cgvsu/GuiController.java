@@ -16,6 +16,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
@@ -42,7 +43,7 @@ public class GuiController {
     final private float TRANSLATION = 0.5F;
     private boolean isStructure = false;
     public static boolean isLight = true;
-    public static boolean isTexture = false;
+
     private final static boolean willItWriteInformationToConsole = true;
     private BufferedImage image = null;
 
@@ -52,6 +53,14 @@ public class GuiController {
     @FXML
     private Canvas canvas;
 
+    @FXML
+    private ComboBox<String> chooseModel;
+    @FXML
+    private ComboBox<String> chooseCamera;
+    private String selectedValue;
+    private String selectedValueCamera;
+    private final List<String> names = new ArrayList<>();
+    private final List<String> namesCamera = new ArrayList<>();
     private final List<Model> mesh = new ArrayList<>();
 
     private List<Camera> camera = new ArrayList<>(Arrays.asList(new Camera(
@@ -60,12 +69,16 @@ public class GuiController {
             1.0F, 1, 0.01F, 100)));
 
     private int numberCamera = 0;
-    private int numberMesh = 0;
+    public static int numberMesh = 0;
 
     private Timeline timeline;
 
     @FXML
     private void initialize() {
+        if (mesh.size()==0){
+            chooseCamera.getItems().add(String.valueOf(numberCamera));
+            namesCamera.add(String.valueOf(numberCamera));
+        }
         anchorPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> canvas.setWidth(newValue.doubleValue()));
         anchorPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> canvas.setHeight(newValue.doubleValue()));
         GraphicsUtils<Canvas> graphicsUtils = new DrawUtilsJavaFX(canvas);
@@ -112,7 +125,9 @@ public class GuiController {
 
         try {
             String fileContent = Files.readString(fileName);
-            mesh.add(ObjReader.read(fileContent, willItWriteInformationToConsole));
+            mesh.add(ObjReader.read(fileContent));
+            names.add(file.getName());
+            chooseModel.getItems().add(file.getName());
             // todo: обработка ошибок
         } catch (IOException exception) {
 
@@ -126,7 +141,6 @@ public class GuiController {
         }
         ArrayList<Polygon> triangles = Triangle.triangulatePolygon(mesh.get(mesh.size() - 1).trianglePolygons);
         mesh.get(mesh.size() - 1).setTrianglePolygons(triangles);
-
     }
 
     @FXML
@@ -168,7 +182,7 @@ public class GuiController {
     @FXML
     private void loadTexture() throws IOException {
 
-        if (!isTexture) {
+        if (!mesh.get(numberMesh).isTexture) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG (*.jpg)", "*.jpg"));
             fileChooser.setTitle("Load jpg");
@@ -179,7 +193,7 @@ public class GuiController {
             }
             image = ImageIO.read(file);
         }
-        isTexture = !isTexture;
+        mesh.get(numberMesh).isTexture = !mesh.get(numberMesh).isTexture;
 
     }
 
@@ -192,6 +206,8 @@ public class GuiController {
                 new Vector3F(0, 0, 0),
                 1.0F, 1, 0.01F, 100));
         numberCamera++;
+        namesCamera.add(String.valueOf(numberCamera));
+        chooseCamera.getItems().add(String.valueOf(numberCamera));
     }
 
     @FXML
@@ -199,19 +215,9 @@ public class GuiController {
         if (camera.size() > 1) {
             if (numberCamera == camera.size() - 1) numberCamera--;
             camera.remove(camera.size() - 1);
+            names.remove(camera.size() - 1);
+            chooseCamera.getItems().remove(numberCamera+1);
         }
-    }
-
-    @FXML
-    public void nextCamera() {
-        if (numberCamera < camera.size() - 1) numberCamera++;
-        else numberCamera = 0;
-    }
-
-    @FXML
-    public void nextModel() {
-        if (numberMesh < mesh.size() - 1) numberMesh++;
-        else numberMesh = 0;
     }
 
     @FXML
@@ -219,12 +225,13 @@ public class GuiController {
         if (mesh.size() > 1) {
             if (numberMesh == mesh.size() - 1) numberMesh--;
             mesh.remove(mesh.size() - 1);
+            names.remove(mesh.size() - 1);
+            chooseModel.getItems().remove(numberMesh+1);
         }
     }
 
     @FXML
     public void handleCameraForward(ActionEvent actionEvent) {
-
         camera.get(numberCamera).scalePosition(new Vector3F(0.98f, 0.98f, 0.98f));
     }
 
@@ -236,6 +243,7 @@ public class GuiController {
     @FXML
     public void handleCameraLeft(ActionEvent actionEvent) {
         camera.get(numberCamera).movePosition(new Vector3F(TRANSLATION, 0, 0));
+        camera.get(numberCamera).moveTarget(new Vector3F(TRANSLATION, 0, 0));
     }
 
     @FXML
@@ -261,15 +269,39 @@ public class GuiController {
     @FXML
     public void handleCameraRight(ActionEvent actionEvent) {
         camera.get(numberCamera).movePosition(new Vector3F(-TRANSLATION, 0, 0));
+        camera.get(numberCamera).moveTarget(new Vector3F(-TRANSLATION, 0, 0));
     }
 
     @FXML
     public void handleCameraUp(ActionEvent actionEvent) {
         camera.get(numberCamera).movePosition(new Vector3F(0, TRANSLATION, 0));
+        camera.get(numberCamera).moveTarget(new Vector3F(0, TRANSLATION, 0));
     }
 
     @FXML
     public void handleCameraDown(ActionEvent actionEvent) {
         camera.get(numberCamera).movePosition(new Vector3F(0, -TRANSLATION, 0));
+        camera.get(numberCamera).moveTarget(new Vector3F(0, -TRANSLATION, 0));
+    }
+
+    @FXML
+    public void choosingActualModel(ActionEvent actionEvent) {
+        selectedValue = chooseModel.getSelectionModel().getSelectedItem();
+        for (int i = 0; i < names.size(); i++) {
+            if (names.get(i).equals(selectedValue)) {
+                numberMesh = i;
+            }
+        }
+
+    }
+    @FXML
+    public void choosingCamera(ActionEvent actionEvent) {
+        selectedValueCamera = chooseCamera.getSelectionModel().getSelectedItem();
+        for (int i = 0; i < namesCamera.size(); i++) {
+            if (namesCamera.get(i).equals(selectedValueCamera)) {
+                numberCamera = i;
+            }
+        }
+
     }
 }

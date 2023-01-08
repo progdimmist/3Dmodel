@@ -72,7 +72,7 @@ public class RenderRasterization {
                     MyColor.RED, MyColor.RED, MyColor.RED, zBuffer, camera, image,
                     mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(0)),
                     mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(1)),
-                    mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(2)));
+                    mesh.textureVertices.get(mesh.trianglePolygons.get(i).getTextureVertexIndices().get(2)),mesh);
         }
         for (Double[] doubles : zBuffer) {
             Arrays.fill(doubles, null);

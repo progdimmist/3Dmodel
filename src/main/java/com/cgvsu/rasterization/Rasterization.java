@@ -3,6 +3,7 @@ package com.cgvsu.rasterization;
 
 import com.cgvsu.GuiController;
 import com.cgvsu.math.vector.Vector2F;
+import com.cgvsu.model.Model;
 import com.cgvsu.render_engine.Camera;
 
 import java.awt.image.BufferedImage;
@@ -18,7 +19,7 @@ public class Rasterization {
             MyPoint3D p1, MyPoint3D p2, MyPoint3D p3,
             MyColor myColor1, MyColor myColor2, MyColor myColor3,
             Double[][] zBuffer, Camera camera, BufferedImage image,
-            Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3) throws IOException {
+            Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3,Model mesh) throws IOException {
 
         List<MyPoint3D> points = new ArrayList<>(Arrays.asList(p1, p2, p3));
 
@@ -64,13 +65,13 @@ public class Rasterization {
         for (int y = (int) (y1 + 1); y <= y2; y++) {
             double startX = getX(y, x1, x2, y1, y2);
             double endX = getX(y, x1, x3, y1, y3);
-            fillLine(gr, y, startX, endX, myColor1, myColor2, myColor3, x1, x2, x3, y1, y2, y3, z1, z2, z3, zBuffer, camera, cosLight, image, texturePoint1, texturePoint2, texturePoint3);
+            fillLine(gr, y, startX, endX, myColor1, myColor2, myColor3, x1, x2, x3, y1, y2, y3, z1, z2, z3, zBuffer, camera, cosLight, image, texturePoint1, texturePoint2, texturePoint3,mesh);
         }
 
         for (int y = (int) (y2 + 1); y < y3; y++) {
             double startX = getX(y, x1, x3, y1, y3);
             double endX = getX(y, x2, x3, y2, y3);
-            fillLine(gr, y, startX, endX, myColor1, myColor2, myColor3, x1, x2, x3, y1, y2, y3, z1, z2, z3, zBuffer, camera, cosLight, image, texturePoint1, texturePoint2, texturePoint3);
+            fillLine(gr, y, startX, endX, myColor1, myColor2, myColor3, x1, x2, x3, y1, y2, y3, z1, z2, z3, zBuffer, camera, cosLight, image, texturePoint1, texturePoint2, texturePoint3,mesh);
         }
     }
 
@@ -81,9 +82,9 @@ public class Rasterization {
             double x3, double y3, double z3,
             MyColor myColor1, MyColor myColor2, MyColor myColor3,
             Double[][] zBuffer, Camera camera, BufferedImage image,
-            Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3) throws IOException {
+            Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3,Model mesh) throws IOException {
         fillTriangle(gr, new MyPoint3D(x1, y1, z1), new MyPoint3D(x2, y2, z2), new MyPoint3D(x3, y3, z3),
-                myColor1, myColor2, myColor3, zBuffer, camera, image, texturePoint1, texturePoint2, texturePoint3);
+                myColor1, myColor2, myColor3, zBuffer, camera, image, texturePoint1, texturePoint2, texturePoint3,mesh);
     }
 
     private static double getX(double y, double x1, double x2, double y1, double y2) {
@@ -97,7 +98,7 @@ public class Rasterization {
             double y1, double y2, double y3,
             double z1, double z2, double z3,
             Double[][] zBuffer, Camera camera, double cosLight, BufferedImage image,
-            Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3) throws IOException {
+            Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3,Model mesh) throws IOException {
 
         if (Double.compare(startX, endX) > 0) {
             double temp = startX;
@@ -110,7 +111,7 @@ public class Rasterization {
             if (x >= 0 && y >= 0) {
                 if (zBuffer[x][y] == null || zBuffer[x][y] > Math.abs(z - camera.getPosition().getZ())) {
                     MyColor color = getColor(myColor1, myColor2, myColor3, x, y, x1, x2, x3, y1, y2, y3, image,
-                            texturePoint1, texturePoint2, texturePoint3);
+                            texturePoint1, texturePoint2, texturePoint3,mesh);
                     gr.setPixel(x, y, new MyColor(color.getRed() * cosLight, color.getGreen() * cosLight, color.getBlue() * cosLight));
                     zBuffer[x][y] = Math.abs(z - camera.getPosition().getZ());
                 }
@@ -124,8 +125,8 @@ public class Rasterization {
             double x, double y,
             double x1, double x2, double x3,
             double y1, double y2, double y3,
-            BufferedImage image, Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3) throws IOException {
-        if (!GuiController.isTexture) {
+            BufferedImage image, Vector2F texturePoint1, Vector2F texturePoint2, Vector2F texturePoint3, Model mesh) throws IOException {
+        if (!mesh.isTexture) {
             double detT = (y2 - y3) * (x1 - x3) + (x3 - x2) * (y1 - y3);
 
             double alpha = ((y2 - y3) * (x - x3) + (x3 - x2) * (y - y3)) / detT;
