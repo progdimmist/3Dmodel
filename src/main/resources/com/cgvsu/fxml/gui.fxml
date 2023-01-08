@@ -34,12 +34,12 @@
         <Menu mnemonicParsing="false" text="Camera Options">
             <MenuItem mnemonicParsing="false" onAction="#handleCameraForward" text="Forward">
                 <accelerator>
-                    <KeyCodeCombination alt="UP" code="UP" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                    <KeyCodeCombination alt="UP" code="Q" control="UP" meta="UP" shift="UP" shortcut="UP" />
                 </accelerator>
             </MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#handleCameraBackward" text="Backward">
                 <accelerator>
-                    <KeyCodeCombination alt="UP" code="DOWN" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                    <KeyCodeCombination alt="UP" code="E" control="UP" meta="UP" shift="UP" shortcut="UP" />
                 </accelerator>
             </MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#handleCameraLeft" text="Left">
