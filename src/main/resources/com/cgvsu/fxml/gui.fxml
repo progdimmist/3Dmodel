@@ -9,6 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <?import com.sun.javafx.scene.control.ContextMenuContent.ArrowMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ComboBox?>
 <AnchorPane fx:id="anchorPane" style="-fx-background-color: #90EE90;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cgvsu.GuiController">
     <MenuBar style="-fx-background-color: #66CDAA;">
         <Menu mnemonicParsing="false" text="File">
@@ -20,11 +23,6 @@
             <MenuItem mnemonicParsing="false" onAction="#saveModelMenuItemClick" text="Save Model">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                </accelerator>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#nextModel" text="Next model">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" code="K" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                 </accelerator>
             </MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#deleteMesh" text="Delete model">
@@ -111,15 +109,25 @@
                     <KeyCodeCombination alt="UP" code="O" control="UP" meta="UP" shift="UP" shortcut="UP" />
                 </accelerator>
             </MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#nextCamera" text="next camera">
-                <accelerator>
-                    <KeyCodeCombination alt="UP" code="P" control="UP" meta="UP" shift="UP" shortcut="UP" />
-                </accelerator>
-            </MenuItem>
+
         </Menu>
     </MenuBar>
 
 
 
     <Canvas fx:id="canvas" height="857.0" layoutY="26.0" width="1600" AnchorPane.topAnchor="26.0" />
+
+    <Label layoutX="477.0" layoutY="1.0" prefHeight="23.0" prefWidth="115.0" text="Choosing Model"  textFill="#990033" textOverrun="CLIP" wrapText="true">
+        <font>
+            <Font name="Impact" size="17.0" />
+        </font>
+    </Label>
+    <ComboBox fx:id="chooseModel" layoutX="470.0" layoutY="28.0" onAction="#choosingActualModel" prefHeight="18.0" prefWidth="128.0" styleClass="combo-box" />
+    <Label layoutX="677.0" layoutY="1.0" prefHeight="23.0" prefWidth="115.0" text="Camera"  textFill="#990033" textOverrun="CLIP" wrapText="true">
+        <font>
+            <Font name="Impact" size="17.0" />
+        </font>
+    </Label>
+    <ComboBox fx:id="chooseCamera" layoutX="670.0" layoutY="28.0" onAction="#choosingCamera" prefHeight="18.0" prefWidth="128.0" styleClass="combo-box" />
+
 </AnchorPane>

@@ -68,42 +68,44 @@ public class Model {
     }
 
 
-    public boolean checkConsistency() {
+    public boolean checkCorrectOfData() {
         for (int i = 0; i < polygons.size(); i++) {
             List<Integer> vertexIndices = polygons.get(i).getVertexIndices();
             List<Integer> textureVertexIndices = polygons.get(i).getTextureVertexIndices();
             List<Integer> normalIndices = polygons.get(i).getNormalIndices();
-            if (vertexIndices.size() != textureVertexIndices.size()
+
+            //кол-во точек с кол-вом текстур
+            if (vertexIndices.size()!=textureVertexIndices.size()
                     && vertexIndices.size() != 0 && textureVertexIndices.size() != 0) {
-                throw new ReaderExceptions.NotDefinedUniformFormatException(
-                        "The unified format for specifying polygon descriptions is not defined.");
+                throw new ReaderExceptions.ObjContentException("Polygon data is incorrect.");
             }
-            if (vertexIndices.size() != normalIndices.size()
-                    && vertexIndices.size() != 0 &&  normalIndices.size() != 0) {
-                throw new ReaderExceptions.NotDefinedUniformFormatException(
-                        "The unified format for specifying polygon descriptions is not defined.");
+            //кол-во точек с кол-вом нормалей
+            if (vertexIndices.size()!= normalIndices.size()
+                    && vertexIndices.size() != 0 && normalIndices.size()!=0) {
+                throw new ReaderExceptions.ObjContentException("Polygon data is incorrect.");
             }
-            if (normalIndices.size() != textureVertexIndices.size()
-                    && normalIndices.size() != 0 && textureVertexIndices.size() != 0) {
-                throw new ReaderExceptions.NotDefinedUniformFormatException(
-                        "The unified format for specifying polygon descriptions is not defined.");
+            //кол-во нормалей и полигонов
+            if (textureVertexIndices.size()!=normalIndices.size()
+                    && textureVertexIndices.size()!=0 && normalIndices.size()!=0) {
+                throw new ReaderExceptions.ObjContentException("Polygon data is incorrect.");
             }
-            for (int j = 0; j < vertexIndices.size(); j++) {
-                if (vertexIndices.get(j) >= vertices.size()) {
-                    throw new ReaderExceptions.FaceException(
-                            "Polygon description is wrong.", i + 1);
+
+            //корректность листа с номерами точек
+            for (Integer vertexIndex : vertexIndices) {
+                if (vertexIndex > vertices.size()) {
+                    throw new ReaderExceptions.ObjContentException("Polygon parameter(vertex) is incorrect");
                 }
             }
-            for (int j = 0; j < textureVertexIndices.size(); j++) {
-                if (textureVertexIndices.get(j) >= textureVertices.size()) {
-                    throw new ReaderExceptions.FaceException(
-                            "Polygon description is wrong.", i + 1);
+
+            for (Integer textureVertexIndex : textureVertexIndices) {
+                if (textureVertexIndex > textureVertices.size()) {
+                    throw new ReaderExceptions.ObjContentException("Polygon parameter(texture vertex) is incorrect");
                 }
             }
-            for (int j = 0; j < normalIndices.size(); j++) {
-                if (normalIndices.get(j) >= normals.size()) {
-                    throw new ReaderExceptions.FaceException(
-                            "Polygon description is wrong.", i + 1);
+
+            for (Integer normalIndex : normalIndices) {
+                if (normalIndex > normals.size()) {
+                    throw new ReaderExceptions.ObjContentException("Polygon parameter(normal) is incorrect");
                 }
             }
         }
