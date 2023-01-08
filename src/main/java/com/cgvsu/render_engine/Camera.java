@@ -46,6 +46,10 @@ public class Camera {
         this.position.sumVectors(translation);
     }
 
+    public void scalePosition(final Vector3F scale){
+        this.position = affineTransform.scale(this.position, scale.getX(), scale.getY(), scale.getZ());
+    }
+
     public void rotationPositionAroundX(final int angle){
         this.position = affineTransform.rotationAroundX(angle,this.position);
     }

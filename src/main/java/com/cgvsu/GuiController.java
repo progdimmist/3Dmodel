@@ -1,7 +1,6 @@
 package com.cgvsu;
 
 
-import com.cgvsu.math.AffineTransform;
 import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.rasterization.DrawUtilsJavaFX;
 import com.cgvsu.rasterization.GraphicsUtils;
@@ -32,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.imageio.ImageIO;
-import javax.vecmath.Vector3f;
 
 import com.cgvsu.model.Model;
 import com.cgvsu.objreader.ObjReader;
@@ -185,10 +183,7 @@ public class GuiController {
 
     }
 
-    @FXML
-    public void handleCameraForward(ActionEvent actionEvent) {
-        camera.get(numberCamera).movePosition(new Vector3F(0, 0, -TRANSLATION));
-    }
+
 
     @FXML
     public void addCamera() {
@@ -227,10 +222,15 @@ public class GuiController {
         }
     }
 
+    @FXML
+    public void handleCameraForward(ActionEvent actionEvent) {
+
+        camera.get(numberCamera).scalePosition(new Vector3F(0.98f, 0.98f, 0.98f));
+    }
 
     @FXML
     public void handleCameraBackward(ActionEvent actionEvent) {
-        camera.get(numberCamera).movePosition(new Vector3F(0, 0, TRANSLATION));
+        camera.get(numberCamera).scalePosition(new Vector3F(1.05f, 1.05f, 1.05f));
     }
 
     @FXML
@@ -241,6 +241,11 @@ public class GuiController {
     @FXML
     public void handleCameraAroundX(ActionEvent actionEvent) {
         camera.get(numberCamera).rotationPositionAroundX(3);
+    }
+
+    @FXML
+    public void cameraGetPositionOnConsole(){
+        System.out.println(Arrays.toString(camera.get(numberCamera).getPosition().getValues()));
     }
 
     @FXML

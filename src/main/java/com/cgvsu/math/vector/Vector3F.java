@@ -7,6 +7,10 @@ public class Vector3F extends AbstractVector implements Vector {
     public Vector3F() {
     }
 
+    public Vector3F(Vector3F v){
+        super.values = v.values;
+        super.size = values.length;
+    }
     public Vector3F(float[] values) {
         if (checkLengthInputValues(values)) {
             super.values = values;
