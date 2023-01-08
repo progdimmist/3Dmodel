@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Simple3DViewer extends Application {
+    //проект проверка не волнуйтесь вова путин коты
 
     @Override
     public void start(Stage stage) throws IOException {
