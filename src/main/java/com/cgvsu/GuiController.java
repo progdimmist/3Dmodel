@@ -232,7 +232,6 @@ public class GuiController {
 
     @FXML
     public void handleCameraForward(ActionEvent actionEvent) {
-
         camera.get(numberCamera).scalePosition(new Vector3F(0.98f, 0.98f, 0.98f));
     }
 
@@ -244,6 +243,7 @@ public class GuiController {
     @FXML
     public void handleCameraLeft(ActionEvent actionEvent) {
         camera.get(numberCamera).movePosition(new Vector3F(TRANSLATION, 0, 0));
+        camera.get(numberCamera).moveTarget(new Vector3F(TRANSLATION, 0, 0));
     }
 
     @FXML
@@ -269,16 +269,19 @@ public class GuiController {
     @FXML
     public void handleCameraRight(ActionEvent actionEvent) {
         camera.get(numberCamera).movePosition(new Vector3F(-TRANSLATION, 0, 0));
+        camera.get(numberCamera).moveTarget(new Vector3F(-TRANSLATION, 0, 0));
     }
 
     @FXML
     public void handleCameraUp(ActionEvent actionEvent) {
         camera.get(numberCamera).movePosition(new Vector3F(0, TRANSLATION, 0));
+        camera.get(numberCamera).moveTarget(new Vector3F(0, TRANSLATION, 0));
     }
 
     @FXML
     public void handleCameraDown(ActionEvent actionEvent) {
         camera.get(numberCamera).movePosition(new Vector3F(0, -TRANSLATION, 0));
+        camera.get(numberCamera).moveTarget(new Vector3F(0, -TRANSLATION, 0));
     }
 
     @FXML
