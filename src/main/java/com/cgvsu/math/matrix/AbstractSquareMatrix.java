@@ -88,6 +88,23 @@ public abstract class AbstractSquareMatrix implements Matrix {
 
     }
 
+    @Override
+    public void productOnMatrix(final Matrix m1){
+        float[][] tmp = new float[this.getSize()][this.getSize()];
+        if (m1.getSize() == this.getSize()) {
+            for (int i = 0; i < m1.getSize(); i++) {
+                for (int j = 0; j < m1.getSize(); j++) {
+                    for (int k = 0; k < m1.getSize(); k++) {
+                        tmp[i][j] += this.getValues()[i][k] * m1.getValues()[k][j];
+                    }
+                }
+            }
+        } else throw new MathExceptions();
+
+        this.value = tmp;
+        this.size = tmp.length;
+    }
+
 
     @Override
     public Matrix productTwoMatrix(final Matrix m1, final Matrix m2) {

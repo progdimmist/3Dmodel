@@ -309,6 +309,36 @@ class AbstractSquareMatrixTest {
     }
 
     @Test
+    void testProductMatrix(){
+        float[][] expected = new float[][]{
+                {-13.879f, 42.7f, 29.15f},
+                {-30.79f, 86, 53.9f},
+                {-50.38f, 137, 83.24f}};
+
+        float[][] m1 = new float[][]{
+                {1.4f, 2.5f, 3.5f},
+                {4, 5, 6},
+                {7, 8, 9}
+        };
+
+        float[][] m2 = new float[][]{
+                {-5.86f, 8, 3},
+                {3.33f, 0, -1.22f},
+                {-4, 9, 8}
+        };
+
+        Matrix matrix1 = new Matrix3F(m1);
+        Matrix matrix2 = new Matrix3F(m2);
+
+        matrix1.productOnMatrix(matrix2);
+
+        for (int i = 0; i < 3; i++) {
+            assertArrayEquals(expected[i], matrix1.getValues()[i], exp);
+        }
+
+    }
+
+    @Test
     void testProductTwoMatrix() {
         //for 3matrix
         MathExceptions thrown = Assertions.assertThrows(MathExceptions.class, () -> {

@@ -85,6 +85,30 @@ class AffineTransformTest {
     }
 
     @Test
+    void testScale(){
+        Matrix4F modelMatrix = new Matrix4F(new float[][] {
+                {1,0,0,0},
+                {0,1,0,0},
+                {0,0,1,0},
+                {0,0,0,1}
+        });
+
+        Matrix4F actual = at.scale(2,2,2,modelMatrix);
+        Matrix4F expected = new Matrix4F(new float[][] {
+                {2,0,0,0},
+                {0,2,0,0},
+                {0,0,2,0},
+                {0,0,0,1}
+        });
+
+
+        for (int i = 0; i < actual.getSize(); i++) {
+            assertArrayEquals(expected.getValues()[i], actual.getValues()[i]);
+        }
+
+    }
+
+    @Test
     void translation() {
         Vector v = new Vector3F(new float[]{1, 2, 3});
         Vector vTransl = new Vector3F(new float[]{1, 2, 3});

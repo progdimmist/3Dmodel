@@ -12,6 +12,8 @@ public interface Matrix {
 
     Matrix productTwoMatrix(final Matrix m1, final Matrix m2);
 
+    void productOnMatrix(final Matrix m1);
+
     Matrix transpose(final Matrix m);
 
     int getSize();

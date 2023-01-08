@@ -15,7 +15,13 @@ public class Matrix4F extends AbstractSquareMatrix implements Matrix {
         }
     }
 
-    public Matrix4F() {
+    public Matrix4F(){
+
+    }
+
+    public Matrix4F(Matrix4F m) {
+        super.value = m.value;
+        super.size = value.length;
     }
 
     @Override

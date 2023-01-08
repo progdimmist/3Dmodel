@@ -1,12 +1,14 @@
 package com.cgvsu.math;
 
 import com.cgvsu.math.matrix.Matrix;
+import com.cgvsu.math.matrix.Matrix3F;
 import com.cgvsu.math.matrix.Matrix4F;
 import com.cgvsu.math.vector.Vector;
 import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.math.vector.Vector4F;
 import com.cgvsu.model.Model;
 
+import javax.vecmath.Matrix3f;
 import java.util.ArrayList;
 
 public class AffineTransform {
@@ -45,6 +47,28 @@ public class AffineTransform {
             tmpVector = translation(tmpVector, translationX, translationY, translationZ);
             transformedVertex.add(tmpVector);
         }
+    }
+
+//    public Matrix3F transformModelMatrix(float scaleOnX, float scaleOnY, float scaleOnZ,
+//                                         int angleX, int angleY, int angleZ,
+//                                         float translationX, float translationY, float translationZ,
+//                                         Matrix3F modelMatrix){
+//
+//
+//    }
+
+    public Matrix4F scale(float scaleOnX, float scaleOnY, float scaleOnZ, Matrix4F modelMatrix){
+        float[][] modelMatrixValues = modelMatrix.getValues();
+        for(int i = 0; i < 4; i++){
+            modelMatrixValues[0][i]*=scaleOnX;
+        }
+        for(int i = 0; i < 4; i++){
+            modelMatrixValues[1][i]*=scaleOnY;
+        }
+        for(int i = 0; i < 4; i++){
+            modelMatrixValues[2][i]*=scaleOnY;
+        }
+        return new Matrix4F(modelMatrixValues);
     }
 
     public Vector3F translation(Vector v, float translationX, float translationY, float translationZ){

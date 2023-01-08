@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.cgvsu.math.matrix.Matrix4F;
 import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.rasterization.GraphicsUtils;
 import com.cgvsu.rasterization.MyColor;
@@ -38,13 +39,13 @@ public class RenderRasterization {
             final int height,
             BufferedImage image) throws IOException {
 
-        Matrix4f modelMatrix = rotateScaleTranslate();
-        Matrix4f viewMatrix = camera.getViewMatrix();
-        Matrix4f projectionMatrix = camera.getProjectionMatrix();
+        Matrix4F modelMatrix = rotateScaleTranslate();
+        Matrix4F viewMatrix = camera.getViewMatrix();
+        Matrix4F projectionMatrix = camera.getProjectionMatrix();
 
-        Matrix4f modelViewProjectionMatrix = new Matrix4f(modelMatrix);
-        modelViewProjectionMatrix.mul(viewMatrix);
-        modelViewProjectionMatrix.mul(projectionMatrix);
+        Matrix4F modelViewProjectionMatrix = new Matrix4F(modelMatrix);
+        modelViewProjectionMatrix.productOnMatrix(viewMatrix);
+        modelViewProjectionMatrix.productOnMatrix(projectionMatrix);
 
         final int nPolygons = mesh.trianglePolygons.size();
         Double[][] zBuffer = new Double[width][height];
