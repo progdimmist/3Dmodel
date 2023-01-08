@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.imageio.ImageIO;
-import javax.vecmath.Vector3f;
 
 import com.cgvsu.model.Model;
 import com.cgvsu.objreader.ObjReader;
@@ -184,15 +183,12 @@ public class GuiController {
 
     }
 
-    @FXML
-    public void handleCameraForward(ActionEvent actionEvent) {
-        camera.get(numberCamera).movePosition(new Vector3F(0, 0, -TRANSLATION));
-    }
+
 
     @FXML
     public void addCamera() {
         camera.add(new Camera(
-                new Vector3F(0, 00, 100),
+                new Vector3F(0, 0, 100),
                 new Vector3F(0, 0, 0),
                 1.0F, 1, 0.01F, 100));
         numberCamera++;
@@ -226,15 +222,40 @@ public class GuiController {
         }
     }
 
+    @FXML
+    public void handleCameraForward(ActionEvent actionEvent) {
+
+        camera.get(numberCamera).scalePosition(new Vector3F(0.98f, 0.98f, 0.98f));
+    }
 
     @FXML
     public void handleCameraBackward(ActionEvent actionEvent) {
-        camera.get(numberCamera).movePosition(new Vector3F(0, 0, TRANSLATION));
+        camera.get(numberCamera).scalePosition(new Vector3F(1.05f, 1.05f, 1.05f));
     }
 
     @FXML
     public void handleCameraLeft(ActionEvent actionEvent) {
         camera.get(numberCamera).movePosition(new Vector3F(TRANSLATION, 0, 0));
+    }
+
+    @FXML
+    public void handleCameraAroundX(ActionEvent actionEvent) {
+        camera.get(numberCamera).rotationPositionAroundX(3);
+    }
+
+    @FXML
+    public void cameraGetPositionOnConsole(){
+        System.out.println(Arrays.toString(camera.get(numberCamera).getPosition().getValues()));
+    }
+
+    @FXML
+    public void handleCameraAroundY(ActionEvent actionEvent) {
+        camera.get(numberCamera).rotationPositionAroundY(3);
+    }
+
+    @FXML
+    public void handleCameraAroundZ(ActionEvent actionEvent) {
+        camera.get(numberCamera).rotationPositionAroundZ(3);
     }
 
     @FXML

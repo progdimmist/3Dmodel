@@ -1,4 +1,5 @@
 package com.cgvsu.render_engine;
+import com.cgvsu.math.AffineTransform;
 import com.cgvsu.math.vector.Vector3F;
 
 import javax.vecmath.Vector3f;
@@ -45,6 +46,20 @@ public class Camera {
         this.position.sumVectors(translation);
     }
 
+    public void scalePosition(final Vector3F scale){
+        this.position = affineTransform.scale(this.position, scale.getX(), scale.getY(), scale.getZ());
+    }
+
+    public void rotationPositionAroundX(final int angle){
+        this.position = affineTransform.rotationAroundX(angle,this.position);
+    }
+    public void rotationPositionAroundY(final int angle){
+        this.position = affineTransform.rotationAroundY(angle,this.position);
+    }
+    public void rotationPositionAroundZ(final int angle){
+        this.position = affineTransform.rotationAroundZ(angle,this.position);
+    }
+
     public void moveTarget(final Vector3F translation) {
         this.target.sumVectors(translation);;
     }
@@ -63,4 +78,5 @@ public class Camera {
     private float aspectRatio;
     private float nearPlane;
     private float farPlane;
+    private final AffineTransform affineTransform = new AffineTransform();
 }

@@ -7,6 +7,10 @@ public class Vector3F extends AbstractVector implements Vector {
     public Vector3F() {
     }
 
+    public Vector3F(Vector3F v){
+        super.values = v.values;
+        super.size = values.length;
+    }
     public Vector3F(float[] values) {
         if (checkLengthInputValues(values)) {
             super.values = values;
@@ -41,9 +45,20 @@ public class Vector3F extends AbstractVector implements Vector {
         this.size = vRes.size;
     }
 
-    @Override
     public Vector vectorCrossProduct(Vector v1, Vector v2) {
-        return null;
+
+        float[] tmp = new float[3];
+        if (v1.getSize() != v2.getSize() && !checkLengthInputValues(v1.getValues())
+                && !checkLengthInputValues(v2.getValues())) {
+            throw new MathExceptions();
+        }
+        tmp[0] = v1.getValues()[1] * v2.getValues()[2] - v1.getValues()[2] * v2.getValues()[1];
+        tmp[1] = -(v1.getValues()[0] * v2.getValues()[2] - v1.getValues()[2] * v2.getValues()[0]);
+        tmp[2] = v1.getValues()[0] * v2.getValues()[1] - v1.getValues()[1] * v2.getValues()[0];
+
+        this.setValues(tmp);
+        this.size = tmp.length;
+        return this;
     }
 
     @Override

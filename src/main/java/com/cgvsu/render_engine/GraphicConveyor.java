@@ -1,5 +1,6 @@
 package com.cgvsu.render_engine;
 
+import com.cgvsu.math.matrix.Matrix4F;
 import com.cgvsu.math.vector.Vector3F;
 
 import javax.vecmath.*;
@@ -17,29 +18,27 @@ public class GraphicConveyor {
     }
 
     public static Matrix4f lookAt(Vector3F eye, Vector3F target) {
-        return lookAt(eye, target, new Vector3f(0F, 1.0F, 0F));
+        return lookAt(eye, target, new Vector3F(0F, 1.0F, 0F));
     }
 
-    public static Matrix4f lookAt(Vector3F eye, Vector3F target, Vector3f up) {
-        Vector3f resultX = new Vector3f();
-        Vector3f resultY = new Vector3f();
-        Vector3f resultZ = new Vector3f();
+    public static Matrix4f lookAt(Vector3F eye, Vector3F target, Vector3F up) {
+        Vector3F resultX = new Vector3F();
+        Vector3F resultY = new Vector3F();
+        Vector3F resultZ = new Vector3F();
 
-        //resultZ.sub(target, eye);
-        resultX.cross(up, resultZ);
-        resultY.cross(resultZ, resultX);
+        resultZ.minusTwoVectors(target, eye);
+        resultX.vectorCrossProduct(up, resultZ);
+        resultY.vectorCrossProduct(resultZ, resultX);
 
-        resultX.normalize();
-        resultY.normalize();
-        resultZ.normalize();
+        resultX.vectorNormalization();
+        resultY.vectorNormalization();
+        resultZ.vectorNormalization();
 
         float[] matrix = new float[]{
-
-                resultX.x, resultY.x, resultZ.x, 0,
-                resultX.y, resultY.y, resultZ.y, 0,
-                resultX.z, resultY.z, resultZ.z, 0,
-                0,0,0,0};
-                //-resultX.dot(eye), -resultY.dot(eye), -resultZ.dot(eye), 1};
+                resultX.getX(), resultY.getX(), resultZ.getX(), 0,
+                resultX.getY(), resultY.getY(), resultZ.getY(), 0,
+                resultX.getZ(), resultY.getZ(), resultZ.getZ(), 0,
+                -resultX.vectorDotProduct(eye), -resultY.vectorDotProduct(eye), -resultZ.vectorDotProduct(eye), 1};
         return new Matrix4f(matrix);
     }
 
