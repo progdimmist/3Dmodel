@@ -236,15 +236,21 @@ public class GuiController {
     public void handleCameraForward(ActionEvent actionEvent) {
         camera.get(numberCamera).scalePosition(new Vector3F(0.98f, 0.98f, 0.98f));
 
-        // МЕТОД ВЫЗЫВАЕТСЯ ЧТОБЫ ПОКАЗАТЬ РАБОЧЕСТЬ АФФИННЫХ ПРЕОБРАЗОВАНИЙ
-        // КНОПОЧКИ И СОХРАНЕНИЕ ПРОШУ ПРИКРУТИТЬ ЗА МЕНЯ
-        scale();
     }
 
     @FXML
     public void handleCameraBackward(ActionEvent actionEvent) {
         camera.get(numberCamera).scalePosition(new Vector3F(1.05f, 1.05f, 1.05f));
+
     }
+
+    @FXML
+    public void demonstrationAffineTransform(){
+        // МЕТОД ВЫЗЫВАЕТСЯ ЧТОБЫ ПОКАЗАТЬ РАБОЧЕСТЬ АФФИННЫХ ПРЕОБРАЗОВАНИЙ
+        // КНОПОЧКИ И СОХРАНЕНИЕ ПРОШУ ПРИКРУТИТЬ ЗА МЕНЯ
+        scale();
+    }
+
 
     @FXML
     public void handleCameraLeftAroundTarget(ActionEvent actionEvent) {

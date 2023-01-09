@@ -26,6 +26,11 @@
             </MenuItem>
         </Menu>
         <Menu mnemonicParsing="false" text="Camera Options">
+            <MenuItem mnemonicParsing="false" onAction="#demonstrationAffineTransform" text="demonstration affTransform">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" code="V" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                </accelerator>
+            </MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#handleCameraForward" text="Forward">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="Q" control="UP" meta="UP" shift="UP" shortcut="UP" />
