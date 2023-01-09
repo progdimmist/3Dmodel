@@ -241,16 +241,41 @@ public class GuiController {
     }
 
     @FXML
-    public void handleCameraLeft(ActionEvent actionEvent) {
-//        camera.get(numberCamera).movePosition(new Vector3F(TRANSLATION, 0, 0));
-//        camera.get(numberCamera).moveTarget(new Vector3F(TRANSLATION, 0, 0));
+    public void handleCameraLeftAroundTarget(ActionEvent actionEvent) {
+        camera.get(numberCamera).rotationAroundChangedY(Math.PI/30);
+    }
 
-        camera.get(numberCamera).rotationAroundAxes(Math.PI/30, Math.PI/30,Math.PI/30);
+    public void handleCameraLeft(ActionEvent actionEvent) {
+        camera.get(numberCamera).movePosition(new Vector3F(TRANSLATION, 0, 0));
+        camera.get(numberCamera).moveTarget(new Vector3F(TRANSLATION, 0, 0));
     }
 
     @FXML
+    public void handleCameraRightAroundTarget(ActionEvent actionEvent) {
+
+        camera.get(numberCamera).rotationAroundChangedY(-Math.PI/30);
+    }
+
+    public void handleCameraRight(ActionEvent actionEvent) {
+        camera.get(numberCamera).movePosition(new Vector3F(-TRANSLATION, 0, 0));
+        camera.get(numberCamera).moveTarget(new Vector3F(-TRANSLATION, 0, 0));
+    }
+
+
+
+
+    @FXML
     public void handleCameraAroundX(ActionEvent actionEvent) {
-        camera.get(numberCamera).rotationPositionAroundX(3);
+        //camera.get(numberCamera).rotationPositionAroundX(3);
+
+        camera.get(numberCamera).rotationAroundChangedX(Math.PI / 20);
+    }
+
+    @FXML
+    public void handleCameraAroundXBack(ActionEvent actionEvent) {
+        //camera.get(numberCamera).rotationPositionAroundX(-3);
+
+        camera.get(numberCamera).rotationAroundChangedX(-Math.PI / 20);
     }
 
     @FXML
@@ -264,17 +289,8 @@ public class GuiController {
     }
 
     @FXML
-    public void handleCameraAroundZ(ActionEvent actionEvent) {
-        camera.get(numberCamera).rotationPositionAroundZ(3);
-    }
-
-    @FXML
-    public void handleCameraRight(ActionEvent actionEvent) {
-//        camera.get(numberCamera).movePosition(new Vector3F(-TRANSLATION, 0, 0));
-//        camera.get(numberCamera).moveTarget(new Vector3F(-TRANSLATION, 0, 0));
-
-        //camera.get(numberCamera).rotationAroundAxes(-Math.PI/20, 0,0);
-        camera.get(numberCamera).rotationAroundProizvolAxes(Math.PI/20);
+    public void handleCameraAroundYBack(ActionEvent actionEvent) {
+        camera.get(numberCamera).rotationPositionAroundY(-3);
     }
 
     @FXML

@@ -4,7 +4,6 @@ import com.cgvsu.math.matrix.Matrix3F;
 import com.cgvsu.math.matrix.Matrix4F;
 import com.cgvsu.math.vector.Vector3F;
 
-import javax.vecmath.Matrix4f;
 import java.util.Arrays;
 
 public class Camera {
@@ -58,26 +57,70 @@ public class Camera {
     public void rotationPositionAroundY(final int angle){
         this.position = affineTransform.rotationAroundY(angle,this.position);
     }
-    public void rotationPositionAroundZ(final int angle){
-        this.position = affineTransform.rotationAroundZ(angle,this.position);
-    }
 
     public void moveTarget(final Vector3F translation) {
         this.target.sumVectors(translation);;
     }
 
-    public void rotationAroundProizvolAxes(double angle){
-        Vector3F v = new Vector3F();
-        v = this.target;
-        v.minusTwoVectors(this.position);
-        //v.setValues(new float[]{0.5f,0.5f,0.5f});
+
+    Vector3F resultY = new Vector3F(new float[]{0,1.0f,0});
+    public Vector3F vectorY(){
+        Vector3F resultX = new Vector3F();
+        Vector3F resultZ = new Vector3F();
+
+        resultZ.minusTwoVectors(target, position);
+        resultX.vectorCrossProduct(resultY, resultZ);
+        resultY.vectorCrossProduct(resultZ, resultX);
+
+        resultX.vectorNormalization();
+        resultY.vectorNormalization();
+        resultZ.vectorNormalization();
+
+        return resultY;
+    }
+    public Vector3F vectorZ(){
+        Vector3F resultX = new Vector3F();
+        Vector3F resultZ = new Vector3F();
+
+        resultZ.minusTwoVectors(target, position);
+        resultX.vectorCrossProduct(resultY, resultZ);
+        resultY.vectorCrossProduct(resultZ, resultX);
+
+        return resultZ;
+    }
+    public Vector3F vectorX(){
+        Vector3F resultX = new Vector3F();
+        Vector3F resultZ = new Vector3F();
+
+        resultZ.minusTwoVectors(target, position);
+        resultX.vectorCrossProduct(resultY, resultZ);
+        resultY.vectorCrossProduct(resultZ, resultX);
+
+        resultX.vectorNormalization();
+        resultY.vectorNormalization();
+        resultZ.vectorNormalization();
+
+        return resultX;
+    }
+
+    public void rotationAroundChangedX(double angle){
+        Vector3F resultX = vectorX();
+        rotationAroundVector(angle, resultX);
+    }
+
+    public void rotationAroundChangedY(double angle){
+
+        resultY = vectorY();
+        rotationAroundVector(angle, resultY);
+    }
+
+    private void rotationAroundVector(double angle, Vector3F result) {
         float cos = (float) Math.cos(angle);
         float sin = (float) Math.sin(angle);
-        v.vectorNormalization();
-        float x = v.getX();
-        float y = v.getY();
-        float z = v.getZ();
-        System.out.println(x + " " + y + " " + z);
+        result.vectorNormalization();
+        float x = result.getX();
+        float y = result.getY();
+        float z = result.getZ();
         Matrix3F mRotationAroundAxes = new Matrix3F(
                 new float[][]{
                         {cos + (1-cos) * x*x, (1-cos)*x*y - sin*z, (1-cos)*x*z + sin *y},
@@ -85,10 +128,10 @@ public class Camera {
                         {(1-cos)*z*x - sin*y, (1-cos)*z*y + sin*x, cos+(1-cos) * z * z}
                 }
         );
-        System.out.println(Arrays.deepToString(mRotationAroundAxes.getValues()));
 
         this.position = (Vector3F) mRotationAroundAxes.productMatrixOnVector(mRotationAroundAxes, this.position);
     }
+
 
     public void rotationAroundAxes(double angleX, double angleY, double angleZ){
         float sinX = (float) Math.sin(angleX);
