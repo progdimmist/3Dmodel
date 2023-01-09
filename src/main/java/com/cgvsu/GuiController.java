@@ -1,6 +1,8 @@
 package com.cgvsu;
 
 
+import com.cgvsu.math.AffineTransform;
+import com.cgvsu.math.exception.MathExceptions;
 import com.cgvsu.math.vector.Vector3F;
 import com.cgvsu.rasterization.DrawUtilsJavaFX;
 import com.cgvsu.rasterization.GraphicsUtils;
@@ -57,6 +59,7 @@ public class GuiController {
     private ComboBox<String> chooseModel;
     @FXML
     private ComboBox<String> chooseCamera;
+
     private String selectedValue;
     private String selectedValueCamera;
     private final List<String> names = new ArrayList<>();
@@ -75,7 +78,7 @@ public class GuiController {
 
     @FXML
     private void initialize() {
-        if (mesh.size()==0){
+        if (mesh.size() == 0) {
             chooseCamera.getItems().add(String.valueOf(numberCamera));
             namesCamera.add(String.valueOf(numberCamera));
         }
@@ -198,7 +201,6 @@ public class GuiController {
     }
 
 
-
     @FXML
     public void addCamera() {
         camera.add(new Camera(
@@ -216,7 +218,7 @@ public class GuiController {
             if (numberCamera == camera.size() - 1) numberCamera--;
             camera.remove(camera.size() - 1);
             names.remove(camera.size() - 1);
-            chooseCamera.getItems().remove(numberCamera+1);
+            chooseCamera.getItems().remove(numberCamera + 1);
         }
     }
 
@@ -226,13 +228,17 @@ public class GuiController {
             if (numberMesh == mesh.size() - 1) numberMesh--;
             mesh.remove(mesh.size() - 1);
             names.remove(mesh.size() - 1);
-            chooseModel.getItems().remove(numberMesh+1);
+            chooseModel.getItems().remove(numberMesh + 1);
         }
     }
 
     @FXML
     public void handleCameraForward(ActionEvent actionEvent) {
         camera.get(numberCamera).scalePosition(new Vector3F(0.98f, 0.98f, 0.98f));
+
+        // МЕТОД ВЫЗЫВАЕТСЯ ЧТОБЫ ПОКАЗАТЬ РАБОЧЕСТЬ АФФИННЫХ ПРЕОБРАЗОВАНИЙ
+        // КНОПОЧКИ И СОХРАНЕНИЕ ПРОШУ ПРИКРУТИТЬ ЗА МЕНЯ
+        scale();
     }
 
     @FXML
@@ -242,7 +248,7 @@ public class GuiController {
 
     @FXML
     public void handleCameraLeftAroundTarget(ActionEvent actionEvent) {
-        camera.get(numberCamera).rotationAroundChangedY(Math.PI/30);
+        camera.get(numberCamera).rotationAroundChangedY(Math.PI / 30);
     }
 
     public void handleCameraLeft(ActionEvent actionEvent) {
@@ -253,16 +259,14 @@ public class GuiController {
     @FXML
     public void handleCameraRightAroundTarget(ActionEvent actionEvent) {
 
-        camera.get(numberCamera).rotationAroundChangedY(-Math.PI/30);
+        camera.get(numberCamera).rotationAroundChangedY(-Math.PI / 30);
     }
 
+    @FXML
     public void handleCameraRight(ActionEvent actionEvent) {
         camera.get(numberCamera).movePosition(new Vector3F(-TRANSLATION, 0, 0));
         camera.get(numberCamera).moveTarget(new Vector3F(-TRANSLATION, 0, 0));
     }
-
-
-
 
     @FXML
     public void handleCameraAroundX(ActionEvent actionEvent) {
@@ -279,8 +283,21 @@ public class GuiController {
     }
 
     @FXML
-    public void cameraGetPositionOnConsole(){
+    public void cameraGetPositionOnConsole() {
         System.out.println(Arrays.toString(camera.get(numberCamera).getPosition().getValues()));
+    }
+
+    //название сокращено в силу отсутствия слов в голове
+    public void scale() {
+        AffineTransform affineTransform = new AffineTransform();
+
+        affineTransform.transformingVertex = mesh.get(numberMesh).vertices;
+
+
+        affineTransform.transforming(3, 3, 3, 10, -10, 0,
+                2, -5, 0);
+        mesh.get(numberMesh).setVertices(affineTransform.transformedVertex);
+
     }
 
     @FXML
@@ -315,6 +332,7 @@ public class GuiController {
         }
 
     }
+
     @FXML
     public void choosingCamera(ActionEvent actionEvent) {
         selectedValueCamera = chooseCamera.getSelectionModel().getSelectedItem();

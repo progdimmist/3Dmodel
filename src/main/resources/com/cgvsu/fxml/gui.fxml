@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.CheckMenuItem?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.input.KeyCodeCombination?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import com.sun.javafx.scene.control.ContextMenuContent.ArrowMenuItem?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.control.ComboBox?>
-<AnchorPane fx:id="anchorPane" style="-fx-background-color: #90EE90;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cgvsu.GuiController">
+<AnchorPane fx:id="anchorPane" style="-fx-background-color: #90EE90;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cgvsu.GuiController">
     <MenuBar style="-fx-background-color: #66CDAA;">
         <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#onOpenModelMenuItemClick" text="Load Model">
@@ -69,30 +63,30 @@
                     <KeyCodeCombination alt="UP" code="W" control="UP" meta="UP" shift="UP" shortcut="UP" />
                 </accelerator>
             </MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#handleCameraDown" text = "Camera down">
+            <MenuItem mnemonicParsing="false" onAction="#handleCameraDown" text="Camera down">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="UP" shortcut="UP" />
                 </accelerator>
             </MenuItem>
-          <MenuItem mnemonicParsing="false" onAction="#handleCameraAroundX" text="Rotation Camera Around Model" >
+          <MenuItem mnemonicParsing="false" onAction="#handleCameraAroundX" text="Rotation Camera Around Model">
             <accelerator>
                 <KeyCodeCombination alt="UP" code="Y" control="UP" meta="UP" shift="UP" shortcut="UP" />
             </accelerator>
           </MenuItem>
 
-            <MenuItem mnemonicParsing="false" onAction="#handleCameraAroundXBack" text="Rotation Camera Around Model" >
+            <MenuItem mnemonicParsing="false" onAction="#handleCameraAroundXBack" text="Rotation Camera Around Model">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="H" control="UP" meta="UP" shift="UP" shortcut="UP" />
                 </accelerator>
             </MenuItem>
 
-            <MenuItem mnemonicParsing="false" onAction="#handleCameraAroundY" text="Rotation Around Y" >
+            <MenuItem mnemonicParsing="false" onAction="#handleCameraAroundY" text="Rotation Around Y">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="G" control="UP" meta="UP" shift="UP" shortcut="UP" />
                 </accelerator>
             </MenuItem>
 
-            <MenuItem mnemonicParsing="false" onAction="#handleCameraAroundYBack" text="Rotation Around Y" >
+            <MenuItem mnemonicParsing="false" onAction="#handleCameraAroundYBack" text="Rotation Around Y">
                 <accelerator>
                     <KeyCodeCombination alt="UP" code="J" control="UP" meta="UP" shift="UP" shortcut="UP" />
                 </accelerator>
@@ -135,17 +129,19 @@
 
     <Canvas fx:id="canvas" height="857.0" layoutY="26.0" width="1600" AnchorPane.topAnchor="26.0" />
 
-    <Label layoutX="477.0" layoutY="1.0" prefHeight="23.0" prefWidth="115.0" text="Choosing Model"  textFill="#990033" textOverrun="CLIP" wrapText="true">
+    <Label layoutX="477.0" layoutY="1.0" prefHeight="23.0" prefWidth="115.0" text="Choosing Model" textFill="#990033" textOverrun="CLIP" wrapText="true">
         <font>
             <Font name="Impact" size="17.0" />
         </font>
     </Label>
     <ComboBox fx:id="chooseModel" layoutX="470.0" layoutY="28.0" onAction="#choosingActualModel" prefHeight="18.0" prefWidth="128.0" styleClass="combo-box" />
-    <Label layoutX="677.0" layoutY="1.0" prefHeight="23.0" prefWidth="115.0" text="Camera"  textFill="#990033" textOverrun="CLIP" wrapText="true">
+    <Label layoutX="677.0" layoutY="1.0" prefHeight="23.0" prefWidth="115.0" text="Camera" textFill="#990033" textOverrun="CLIP" wrapText="true">
         <font>
             <Font name="Impact" size="17.0" />
         </font>
     </Label>
     <ComboBox fx:id="chooseCamera" layoutX="670.0" layoutY="28.0" onAction="#choosingCamera" prefHeight="18.0" prefWidth="128.0" styleClass="combo-box" />
+   <Label layoutX="39.0" layoutY="54.0" />
+   <Label layoutX="92.0" layoutY="77.0" />
 
 </AnchorPane>
